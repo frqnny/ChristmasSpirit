@@ -1,0 +1,100 @@
+{
+  "congrats": {
+    "category": "item",
+    "subtitle": "congrats",
+    "sounds": [
+      {
+        "name": "cspirit:congrats",
+        "stream": true
+      }
+    ]
+  },
+  "present.wrap": {
+    "category": "item",
+    "subtitle": "present.wrap",
+    "sounds": [
+      {
+        "name": "cspirit:present_wrap",
+        "stream": true
+      }
+    ]
+  },
+  "present.unwrap": {
+    "category": "item",
+    "subtitle": "present.unwrap",
+    "sounds": [
+      {
+        "name": "cspirit:present_unwrap_1",
+        "stream": true
+      },
+      {
+        "name": "cspirit:present_unwrap_2",
+        "stream": true
+      },
+      {
+        "name": "cspirit:present_unwrap_3",
+        "stream": true
+      }
+    ]
+  },
+  "can.open": {
+    "category": "item",
+    "subtitle": "can.open",
+    "sounds": [
+      {
+        "name": "cspirit:can_open",
+        "stream": true
+      }
+    ]
+  },
+  "wanna.sprite.cranberry": {
+    "category": "item",
+    "subtitle": "wanna.sprite.cranberry",
+    "sounds": [
+      {
+        "name": "cspirit:wanna_sprite_cranberry",
+        "stream": true
+      }
+    ]
+  },
+  "the.answer.is.clear": {
+    "category": "item",
+    "subtitle": "the.answer.is.clear",
+    "sounds": [
+      {
+        "name": "cspirit:the_answer_is_clear",
+        "stream": true
+      }
+    ]
+  },
+  "disc.wishbackground": {
+    "category": "item",
+    "subtitle": "disc.sub",
+    "sounds": [
+      {
+        "name": "cspirit:disc/wishbackground",
+        "stream": true
+      }
+    ]
+  },
+  "disc.mcchristmas": {
+    "category": "item",
+    "subtitle": "disc.sub",
+    "sounds": [
+      {
+        "name": "cspirit:disc/mcchristmas",
+        "stream": true
+      }
+    ]
+  },
+  "disc.jared": {
+    "category": "item",
+    "subtitle": "disc.sub",
+    "sounds": [
+      {
+        "name": "cspirit:disc/jared",
+        "stream": true
+      }
+    ]
+  }
+}

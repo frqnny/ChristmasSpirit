@@ -1,0 +1,19 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    " D ",
+    "L L"
+  ],
+  "key": {
+    "D": {
+      "item": "minecraft:red_dye"
+    },
+    "L": {
+      "item": "minecraft:spruce_leaves"
+    }
+  },
+  "result": {
+    "item": "cspirit:mistletoe",
+    "count": 1
+  }
+}
