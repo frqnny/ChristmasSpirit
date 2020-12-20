@@ -51,7 +51,7 @@ public class ModItems {
     public static final Item CANDY_CANE_GREEN = new CandyCaneItem(ModBlocks.CANDY_CANE_POST_GREEN, new FabricItemSettings().group(ChristmasSpirit.DECORATION).food(new FoodComponent.Builder().hunger(7).saturationModifier(0.8F).alwaysEdible().build()));
     public static final Item CANDY_CANE_BLUE = new CandyCaneItem(ModBlocks.CANDY_CANE_POST_BLUE, new FabricItemSettings().group(ChristmasSpirit.DECORATION).food(new FoodComponent.Builder().hunger(7).saturationModifier(0.8F).alwaysEdible().build()));
 
-    public static final Item SUGAR_COOKIE_SANTA = new SantaCookieItem(new FabricItemSettings().group(ChristmasSpirit.BAKING).food(new FoodComponent.Builder().hunger(12).saturationModifier(1.2F).alwaysEdible().statusEffect(new StatusEffectInstance(ModEffects.HOLIDAY_SPIRIT), 1F).build()));
+    public static final Item SUGAR_COOKIE_SANTA = new SantaCookieItem(new FabricItemSettings().group(ChristmasSpirit.BAKING).food(new FoodComponent.Builder().hunger(12).saturationModifier(1.2F).alwaysEdible().build()));
 
     public static final Item SUGAR_COOKIE_CIRCLE = new CSFoodItem(5, 0.2F, 2, false);
     public static final Item SUGAR_COOKIE_ORNAMENT = new CSFoodItem(6, 0.3F, 2, false);

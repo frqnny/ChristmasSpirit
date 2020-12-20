@@ -59,6 +59,7 @@ public class ChristmasSpiritClient implements ClientModInitializer {
         EntityRendererRegistry.INSTANCE.register(ModEntityTypes.CANDY_CANE_PROJECTILE, (entityRenderDispatcher, context) -> new CandyCaneProjectileEntityRenderer(entityRenderDispatcher));
         EntityRendererRegistry.INSTANCE.register(ModEntityTypes.CHRISTMAS_TREE, (entityRenderDispatcher, context) -> new ChristmasTreeEntityRenderer(entityRenderDispatcher));
         EntityRendererRegistry.INSTANCE.register(ModEntityTypes.SLEIGH_ENTITY, ((entityRenderDispatcher, context) -> new SleighEntityRenderer(entityRenderDispatcher)));
+
     }
 
 }
