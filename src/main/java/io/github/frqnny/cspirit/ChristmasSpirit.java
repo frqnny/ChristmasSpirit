@@ -6,10 +6,12 @@ import io.github.frqnny.cspirit.client.screen.CookieTrayGUI;
 import io.github.frqnny.cspirit.client.screen.UnwrappedPresentGUI;
 import io.github.frqnny.cspirit.command.CSCommandBase;
 import io.github.frqnny.cspirit.config.ChristmasSpiritConfig;
+import io.github.frqnny.cspirit.data.CSDataSerializers;
 import io.github.frqnny.cspirit.data.DailyPresentDataFile;
 import io.github.frqnny.cspirit.data.NaughtyListFile;
 import io.github.frqnny.cspirit.data.SantaGiftListFile;
 import io.github.frqnny.cspirit.init.*;
+import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
@@ -21,7 +23,9 @@ import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.ScreenHandlerType;
@@ -29,6 +33,7 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
 
+import java.util.Set;
 import java.util.function.Predicate;
 
 public class ChristmasSpirit implements ModInitializer {
@@ -45,6 +50,7 @@ public class ChristmasSpirit implements ModInitializer {
 
     public static ScreenHandlerType<CookieTrayGUI> COOKIE_TRAY_GUI;
     public static ScreenHandlerType<UnwrappedPresentGUI> UNWRAPPED_PRESENT_GUI;
+    public static Set<Item> NAUGHTY;
     private static ChristmasSpiritConfig config;
 
     public static Identifier id(String namespace) {
@@ -85,6 +91,7 @@ public class ChristmasSpirit implements ModInitializer {
         ModPackets.init();
         CommandRegistrationCallback.EVENT.register(((commandDispatcher, b) -> CSCommandBase.register(commandDispatcher)));
         ModEvents.init();
+        ModEntityTypes.init();
 
         BiomeModifications.create(
                 id("frozen_world"))
@@ -113,6 +120,15 @@ public class ChristmasSpirit implements ModInitializer {
             }
         });
 
-
+        TrackedDataHandlerRegistry.register(CSDataSerializers.ITEMSTACK_ARRAY_4);
+        NAUGHTY = new ObjectOpenHashSet<>(8);
+        NAUGHTY.add(ModItems.LUMP_OF_COAL);
+        NAUGHTY.add(ModItems.FROST_INGOT);
+        NAUGHTY.add(ModItems.FROST_HELMET);
+        NAUGHTY.add(ModItems.FROST_CHESTPLATE);
+        NAUGHTY.add(ModItems.FROST_LEGGINGS);
+        NAUGHTY.add(ModItems.FROST_BOOTS);
+        NAUGHTY.add(ModItems.FROSTMOURNE);
+        NAUGHTY.add(ModItems.CANDY_CANE_CANNON);
     }
 }

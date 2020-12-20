@@ -4,7 +4,6 @@ import io.github.frqnny.cspirit.data.DailyPresentDataFile;
 import io.github.frqnny.cspirit.util.PresentHelper;
 import io.github.frqnny.cspirit.util.TimeHelper;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
-import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 public class ModEvents {

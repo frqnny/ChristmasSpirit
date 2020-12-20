@@ -1,6 +1,5 @@
 package io.github.frqnny.cspirit.item.tier;
 
-import io.github.frqnny.cspirit.ChristmasSpirit;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.EquipmentSlot;
@@ -42,7 +41,7 @@ public enum CSArmorTiers implements ArmorMaterial {
     @Environment(EnvType.CLIENT)
     @Override
     public String getName() {
-        return ChristmasSpirit.MODID + ":" + name;
+        return name;
     }
 
     @Override

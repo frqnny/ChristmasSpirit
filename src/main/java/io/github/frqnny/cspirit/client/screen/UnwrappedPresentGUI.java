@@ -105,7 +105,6 @@ public class UnwrappedPresentGUI extends SyncedGuiDescription {
             constructor.toPlayerName = textField.getText();
 
 
-
             PacketByteBuf buf = PacketByteBufs.create();
             CompoundTag tag = new CompoundTag();
             constructor.toNBT(tag);

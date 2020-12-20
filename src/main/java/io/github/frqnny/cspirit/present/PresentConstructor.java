@@ -1,9 +1,15 @@
 package io.github.frqnny.cspirit.present;
 
+import io.github.frqnny.cspirit.blockentity.UnwrappedPresentBlockEntity;
+import io.github.frqnny.cspirit.blockentity.WrappedPresentBlockEntity;
 import io.github.frqnny.cspirit.util.ItemHelper;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 
 public class PresentConstructor {
 
@@ -90,14 +96,6 @@ public class PresentConstructor {
 
      */
 
-    public int getActualDay() {
-        return this.day + 1;
-    }
-
-    public void toStack(ItemStack stack) {
-        CompoundTag nbt = ItemHelper.getNBT(stack);
-        toNBT(nbt);
-    }
     public static PresentConstructor fromBytes(PacketByteBuf buf) {
         PresentConstructor constructor = new PresentConstructor();
         constructor.fromPlayerName = buf.readString();
@@ -114,6 +112,20 @@ public class PresentConstructor {
         constructor.day = nbt.getInt("Present-Day");
         constructor.styleIndex = nbt.getInt("Present-Style");
         return constructor;
+    }
+
+    public static PresentConstructor fromStack(ItemStack stack) {
+        CompoundTag nbt = ItemHelper.getNBT(stack);
+        return fromNBT(nbt);
+    }
+
+    public int getActualDay() {
+        return this.day + 1;
+    }
+
+    public void toStack(ItemStack stack) {
+        CompoundTag nbt = ItemHelper.getNBT(stack);
+        toNBT(nbt);
     }
 
     public PresentStyle getStyle() {
@@ -136,5 +148,23 @@ public class PresentConstructor {
 
     public void setStyleIndex(int styleIndex) {
         this.styleIndex = styleIndex;
+    }
+
+    public void toBlock(World world, BlockPos pos) {
+
+        ItemStack giftStack = ItemStack.EMPTY;
+        BlockEntity be = world.getBlockEntity(pos);
+        if (be instanceof UnwrappedPresentBlockEntity) {
+            giftStack = ((Inventory) be).getStack(0);
+        }
+
+        world.setBlockState(pos, getStyle().getBlock().getDefaultState());
+        BlockEntity newBe = world.getBlockEntity(pos);
+
+        if (newBe instanceof WrappedPresentBlockEntity) {
+            WrappedPresentBlockEntity tileEntity = (WrappedPresentBlockEntity) newBe;
+            tileEntity.setPresentConstructor(this);
+            ((Inventory) tileEntity).setStack(0, giftStack);
+        }
     }
 }

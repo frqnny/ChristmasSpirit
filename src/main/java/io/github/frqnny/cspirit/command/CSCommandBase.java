@@ -9,7 +9,6 @@ import io.github.frqnny.cspirit.data.DailyPresentDataFile;
 import io.github.frqnny.cspirit.data.SantaGiftListFile;
 import io.github.frqnny.cspirit.util.ChatHelper;
 import io.github.frqnny.cspirit.util.PresentHelper;
-import net.minecraft.command.CommandSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.command.ServerCommandSource;
@@ -25,7 +24,7 @@ public class CSCommandBase {
     /**
      * Registers all of the commands.
      */
-    public static void register (CommandDispatcher<ServerCommandSource> dispatcher) {
+    public static void register(CommandDispatcher<ServerCommandSource> dispatcher) {
         LiteralArgumentBuilder<ServerCommandSource> csCommand = CommandManager.literal("cspirit");
         csCommand.requires(commandSource -> true)
                 .then(gift().requires((player) -> player.hasPermissionLevel(2)))
@@ -36,7 +35,7 @@ public class CSCommandBase {
         dispatcher.register(csCommand);
     }
 
-    private static ArgumentBuilder<ServerCommandSource, ?> startDailyGiftEvent () {
+    private static ArgumentBuilder<ServerCommandSource, ?> startDailyGiftEvent() {
 
         return CommandManager.literal("startDailyGiftEvent").executes(ctx -> {
 
@@ -47,7 +46,7 @@ public class CSCommandBase {
         });
     }
 
-    private static ArgumentBuilder<ServerCommandSource, ?> stopDailyGiftEvent () {
+    private static ArgumentBuilder<ServerCommandSource, ?> stopDailyGiftEvent() {
 
         return CommandManager.literal("stopDailyGiftEvent").executes(ctx -> {
 
@@ -58,7 +57,7 @@ public class CSCommandBase {
         });
     }
 
-    private static ArgumentBuilder<ServerCommandSource, ?> gift () {
+    private static ArgumentBuilder<ServerCommandSource, ?> gift() {
 
         return CommandManager.literal("gift").executes(ctx -> 0).then(CommandManager.argument("day", IntegerArgumentType.integer(1, 32)).executes(ctx -> {
 
@@ -67,7 +66,7 @@ public class CSCommandBase {
         }));
     }
 
-    private static ArgumentBuilder<ServerCommandSource, ?> reloadSantaGifts () {
+    private static ArgumentBuilder<ServerCommandSource, ?> reloadSantaGifts() {
 
         return CommandManager.literal("reloadSantaGifts").executes(ctx -> {
 
@@ -90,7 +89,7 @@ public class CSCommandBase {
         });
     }
 
-    private static ArgumentBuilder<ServerCommandSource, ?> removePresentData () {
+    private static ArgumentBuilder<ServerCommandSource, ?> removePresentData() {
 
         return CommandManager.literal("removePresentData").executes(ctx -> {
 

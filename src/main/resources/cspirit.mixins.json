@@ -4,6 +4,8 @@
   "package": "io.github.frqnny.cspirit.mixin",
   "compatibilityLevel": "JAVA_8",
   "mixins": [
+    "ItemMixin",
+    "MixinLivingEntity"
   ],
   "injectors": {
     "defaultRequire": 1

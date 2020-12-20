@@ -19,12 +19,12 @@ public class WrappedPresentBlockEntity extends CSBlockEntity {
         return presentConstructor;
     }
 
-    public UnitChatMessage getUnitName(PlayerEntity player) {
-        return new UnitChatMessage("Wrapped Present", player);
-    }
-
     public void setPresentConstructor(PresentConstructor presentConstructor) {
         this.presentConstructor = presentConstructor;
+    }
+
+    public UnitChatMessage getUnitName(PlayerEntity player) {
+        return new UnitChatMessage("Wrapped Present", player);
     }
 
     @Override

@@ -7,7 +7,6 @@ import io.github.frqnny.cspirit.init.ModEffects;
 import io.github.frqnny.cspirit.init.ModItems;
 import io.github.frqnny.cspirit.init.ModSounds;
 import io.github.frqnny.cspirit.present.PresentConstructor;
-import net.minecraft.entity.effect.StatusEffect;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
@@ -25,12 +24,12 @@ public class PresentHelper {
     public static void giveSantaPresent(ServerPlayerEntity player, int day) {
 
         World world = player.world;
-        WrappedPresentBlock.spawnPresent(world, player.getBlockPos() , getSantaPresent(player.getDisplayName().getString(), day), ItemStack.EMPTY);
+        WrappedPresentBlock.spawnPresent(world, player.getBlockPos(), getSantaPresent(player.getEntityName(), day), ItemStack.EMPTY);
 
         //Visuals
-        FireworkHelper.spawnFirework(player, (byte)1, true, true, DyeColor.RED, DyeColor.GREEN);
+        FireworkHelper.spawnFirework(player, (byte) 1, true, true, DyeColor.RED, DyeColor.GREEN);
         SoundHelper.sendSoundToClient(player, ModSounds.CONGRATS);
-        ChatHelper.broadcastMessage(world, Formatting.GREEN + "" + Formatting.BOLD + player.getDisplayName().getString() + " has received their daily present!");
+        ChatHelper.broadcastMessage(world, Formatting.GREEN + "" + Formatting.BOLD + player.getEntityName() + " has received their daily present!");
     }
 
     public static PresentConstructor getSantaPresent(String toPlayerName, int day) {

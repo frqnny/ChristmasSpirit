@@ -1,11 +1,9 @@
 package io.github.frqnny.cspirit.init;
 
 import io.github.frqnny.cspirit.ChristmasSpirit;
-import io.github.frqnny.cspirit.block.WrappedPresentBlock;
 import io.github.frqnny.cspirit.blockentity.WrappedPresentBlockEntity;
 import io.github.frqnny.cspirit.present.PresentConstructor;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
-import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
