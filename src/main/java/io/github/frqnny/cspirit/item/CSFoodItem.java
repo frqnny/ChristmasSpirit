@@ -32,7 +32,7 @@ public class CSFoodItem extends Item implements IItemSpiritSupplier {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity entityLiving) {
-        EffectHelper.giveHolidaySpiritStackEffect((PlayerEntity)entityLiving, maxSpiritStack);
+        EffectHelper.giveHolidaySpiritStackEffect((PlayerEntity) entityLiving, maxSpiritStack);
 
         return super.finishUsing(stack, world, entityLiving);
     }

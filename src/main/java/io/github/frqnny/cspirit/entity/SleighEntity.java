@@ -3,14 +3,9 @@ package io.github.frqnny.cspirit.entity;
 import io.github.frqnny.cspirit.ChristmasSpirit;
 import io.github.frqnny.cspirit.init.ModEntityTypes;
 import io.github.frqnny.cspirit.init.ModItems;
-import io.github.frqnny.cspirit.util.PacketHelper;
 import io.netty.buffer.Unpooled;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.fabricmc.fabric.api.network.ServerSidePacketRegistry;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.BlockState;
-import net.minecraft.client.util.math.Vector3d;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
@@ -33,10 +28,12 @@ import java.util.List;
 
 public class SleighEntity extends BoatEntity {
     private static final int MAX_PASSENGERS = 4;
+
     public SleighEntity(EntityType<? extends SleighEntity> entityType, World world) {
         super(entityType, world);
         this.stepHeight = 1.0F;
     }
+
     public SleighEntity(World world, double x, double y, double z) {
         this(ModEntityTypes.SLEIGH_ENTITY, world);
         this.updatePosition(x, y, z);
@@ -50,9 +47,7 @@ public class SleighEntity extends BoatEntity {
     public void tick() {
         if (this.isLogicalSideForUpdatingMovement()) {
             this.move(MovementType.SELF, this.getVelocity().multiply(4, 1, 4));
-        }
-
-        else {
+        } else {
             this.setVelocity(Vec3d.ZERO);
         }
 
@@ -70,9 +65,7 @@ public class SleighEntity extends BoatEntity {
 
                     if (flag && this.getPassengerList().size() < MAX_PASSENGERS && !entity.hasVehicle() && entity.getWidth() < this.getWidth() && entity instanceof LivingEntity && !(entity instanceof WaterCreatureEntity) && !(entity instanceof PlayerEntity)) {
                         entity.startRiding(this);
-                    }
-
-                    else this.pushAwayFrom(entity);
+                    } else this.pushAwayFrom(entity);
                 }
             }
         }
@@ -84,7 +77,7 @@ public class SleighEntity extends BoatEntity {
 
             double passengerOffsetX = 0.0F;
             double passengerOffsetZ = 0.0F;
-            float f1 = (float)((this.removed ? (double)0.01F : this.getMountedHeightOffset()) + passenger.getHeightOffset());
+            float f1 = (float) ((this.removed ? (double) 0.01F : this.getMountedHeightOffset()) + passenger.getHeightOffset());
 
             if (getPassengerList().indexOf(passenger) == 0) passengerOffsetX = -0.39D;
             if (getPassengerList().size() > 1 && getPassengerList().indexOf(passenger) == 1) passengerOffsetX = 0.39D;
@@ -100,8 +93,8 @@ public class SleighEntity extends BoatEntity {
                 passengerOffsetZ = -1.0D;
             }
 
-            Vec3d vector3d = (new Vec3d(-0.5D + passengerOffsetZ, 0D, passengerOffsetX)).rotateY(-this.yaw * ((float)Math.PI / 180F) - ((float)Math.PI / 2F));
-            passenger.setPos(this.getX() + vector3d.x, this.getY() + (double)f1, this.getZ() + vector3d.z);
+            Vec3d vector3d = (new Vec3d(-0.5D + passengerOffsetZ, 0D, passengerOffsetX)).rotateY(-this.yaw * ((float) Math.PI / 180F) - ((float) Math.PI / 2F));
+            passenger.setPos(this.getX() + vector3d.x, this.getY() + (double) f1, this.getZ() + vector3d.z);
 
             passenger.yaw += (yaw - prevYaw);
             passenger.setHeadYaw(passenger.getHeadYaw() + (yaw - prevYaw));
@@ -121,10 +114,8 @@ public class SleighEntity extends BoatEntity {
 
             if (onGround) {
                 this.fallDistance = 0.0F;
-            }
-
-            else if (!this.world.getFluidState(this.getBlockPos().down()).isIn(FluidTags.WATER) && getY() < 0.0D) {
-                this.fallDistance = (float)((double)this.fallDistance - getY());
+            } else if (!this.world.getFluidState(this.getBlockPos().down()).isIn(FluidTags.WATER) && getY() < 0.0D) {
+                this.fallDistance = (float) ((double) this.fallDistance - getY());
             }
         }
     }

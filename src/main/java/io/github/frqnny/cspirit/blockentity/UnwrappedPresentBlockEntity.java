@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -35,6 +36,6 @@ public class UnwrappedPresentBlockEntity extends CSBlockEntity implements Extend
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new UnwrappedPresentGUI(syncId, inv, this, pos);
+        return new UnwrappedPresentGUI(syncId, inv, ScreenHandlerContext.create(world, pos));
     }
 }

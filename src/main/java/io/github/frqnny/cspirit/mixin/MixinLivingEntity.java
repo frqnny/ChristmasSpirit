@@ -5,8 +5,6 @@ import io.github.frqnny.cspirit.data.NaughtyListFile;
 import io.github.frqnny.cspirit.init.ModItems;
 import io.github.frqnny.cspirit.util.EffectHelper;
 import io.github.frqnny.cspirit.util.FrostHelper;
-import io.github.frqnny.cspirit.util.ItemHelper;
-import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -24,7 +22,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.util.Objects;
 
 @Mixin(LivingEntity.class)
-public abstract class MixinLivingEntity{
+public abstract class MixinLivingEntity {
 
     @Inject(method = "applyDamage", at = @At("TAIL"))
     public void freezeYourEnemies(DamageSource source, float amount, CallbackInfo info) {
@@ -69,11 +67,11 @@ public abstract class MixinLivingEntity{
 
             if (!whateverThisIs.world.isClient) {
 
-                if (world.getTime() % 20 * 60 == 0) {
+                if (world.getTimeOfDay() % 20 * 60 == 0) {
 
                     if (((LivingEntity) (Object) this) instanceof PlayerEntity) {
 
-                        PlayerEntity player = ((PlayerEntity)((Object) this));
+                        PlayerEntity player = ((PlayerEntity) ((Object) this));
 
                         for (int i = 0; i < player.inventory.size(); i++) {
 

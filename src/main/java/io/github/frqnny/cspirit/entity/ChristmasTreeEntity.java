@@ -3,9 +3,12 @@ package io.github.frqnny.cspirit.entity;
 import io.github.frqnny.cspirit.data.CSDataSerializers;
 import io.github.frqnny.cspirit.init.ModEntityTypes;
 import io.github.frqnny.cspirit.init.ModItems;
+import io.github.frqnny.cspirit.init.ModPackets;
 import io.github.frqnny.cspirit.util.EffectHelper;
 import io.github.frqnny.cspirit.util.ItemHelper;
 import io.github.frqnny.cspirit.util.PacketHelper;
+import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
@@ -19,6 +22,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.Packet;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
@@ -252,7 +256,14 @@ public class ChristmasTreeEntity extends Entity {
 
     @Override
     public Packet<?> createSpawnPacket() {
-        return PacketHelper.newSpawnPacket(this);
+        PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+        buf.writeDouble(getX());
+        buf.writeDouble(getY());
+        buf.writeDouble(getZ());
+        buf.writeInt(getEntityId());
+        buf.writeUuid(getUuid());
+        buf.writeBoolean(this.dataTracker.get(WHITE));
+        return ServerPlayNetworking.createS2CPacket(ModPackets.SPAWN_PACKET_TREE, buf);
     }
 
     @Override
@@ -274,4 +285,6 @@ public class ChristmasTreeEntity extends Entity {
     public float getTargetingMargin() {
         return 0.0F;
     }
+
+
 }

@@ -7,10 +7,11 @@ import io.github.frqnny.cspirit.ChristmasSpirit;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.screen.PropertyDelegate;
+import net.minecraft.screen.ScreenHandlerContext;
 
 public class CookieTrayGUI extends SyncedGuiDescription {
-    public CookieTrayGUI(int syncId, PlayerInventory playerInventory, Inventory blockInventory, PropertyDelegate propertyDelegate) {
-        super(ChristmasSpirit.COOKIE_TRAY_GUI, syncId, playerInventory, blockInventory, propertyDelegate);
+    public CookieTrayGUI(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+        super(ChristmasSpirit.COOKIE_TRAY_GUI, syncId, playerInventory, getBlockInventory(context), null);
         WGridPanel root = new WGridPanel(1);
         setRootPanel(root);
         root.setSize(176, 132);

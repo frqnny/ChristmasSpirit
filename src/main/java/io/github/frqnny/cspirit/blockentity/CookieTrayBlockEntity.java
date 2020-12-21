@@ -7,6 +7,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 import net.minecraft.text.TranslatableText;
@@ -35,7 +36,7 @@ public class CookieTrayBlockEntity extends CSBlockEntity implements ExtendedScre
     @Nullable
     @Override
     public ScreenHandler createMenu(int syncId, PlayerInventory inv, PlayerEntity player) {
-        return new CookieTrayGUI(syncId, inv, this, null);
+        return new CookieTrayGUI(syncId, inv, ScreenHandlerContext.create(world, pos));
     }
 
     @Override

@@ -7,7 +7,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Formatting;
 import net.minecraft.world.World;
@@ -32,7 +31,7 @@ public class SantaCookieItem extends CSFoodItem {
             if (NaughtyListFile.isOnNaughtyList(player)) {
 
                 NaughtyListFile.removeFromNaughtyList(player);
-                ChatHelper.printModMessage(Formatting.GREEN,"You've been removed from the Naughty List!", player);
+                ChatHelper.printModMessage(Formatting.GREEN, "You've been removed from the Naughty List!", player);
             }
         }
 

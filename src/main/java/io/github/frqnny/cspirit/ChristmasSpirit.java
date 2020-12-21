@@ -23,15 +23,18 @@ import net.fabricmc.fabric.api.client.itemgroup.FabricItemGroupBuilder;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.screenhandler.v1.ScreenHandlerRegistry;
 import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.SpawnSettings;
 
 import java.util.Set;
 import java.util.function.Predicate;
@@ -76,6 +79,13 @@ public class ChristmasSpirit implements ModInitializer {
         return (context) -> getConfig().worldGen.freezeWorld;
     }
 
+    public static Predicate<BiomeSelectionContext> deerSpawn() {
+        return (context) -> {
+            Biome.Category category = context.getBiome().getCategory();
+            return category == Biome.Category.PLAINS || category == Biome.Category.FOREST;
+        };
+    }
+
     @Override
     public void onInitialize() {
         AutoConfig.register(ChristmasSpiritConfig.class, JanksonConfigSerializer::new);
@@ -83,6 +93,7 @@ public class ChristmasSpirit implements ModInitializer {
         NaughtyListFile.init();
         DailyPresentDataFile.init();
         SantaGiftListFile.init();
+        ModEntityTypes.init();
 
         ModBlocks.init();
         ModItems.init();
@@ -91,7 +102,6 @@ public class ChristmasSpirit implements ModInitializer {
         ModPackets.init();
         CommandRegistrationCallback.EVENT.register(((commandDispatcher, b) -> CSCommandBase.register(commandDispatcher)));
         ModEvents.init();
-        ModEntityTypes.init();
 
         BiomeModifications.create(
                 id("frozen_world"))
@@ -99,26 +109,16 @@ public class ChristmasSpirit implements ModInitializer {
                         BiomeSelectors.foundInOverworld().and(shouldFreezeOceanBiomeIfOcean()).and(freezeTheWorld()),
                         (context) -> context.getWeather().setTemperature(0F)
                 );
+        BiomeModifications.create(
+                id("deer_spawn"))
+                .add(ModificationPhase.ADDITIONS,
+                        deerSpawn(),
+                        (context) -> context.getSpawnSettings().addSpawn(SpawnGroup.CREATURE, new SpawnSettings.SpawnEntry(ModEntityTypes.REINDEER_ENTITY, ChristmasSpirit.getConfig().misc.reindeerSpawnWeight, 2, 4))
+                );
 
-        COOKIE_TRAY_GUI = ScreenHandlerRegistry.registerExtended(id("cookie_tray"), (syncId, inventory, buf) -> {
+        COOKIE_TRAY_GUI = ScreenHandlerRegistry.registerExtended(id("cookie_tray"), (syncId, inventory, buf) -> new CookieTrayGUI(syncId, inventory, ScreenHandlerContext.create(inventory.player.world, buf.readBlockPos())));
 
-            BlockEntity be = inventory.player.world.getBlockEntity(buf.readBlockPos());
-            if (be instanceof CookieTrayBlockEntity) {
-                return new CookieTrayGUI(syncId, inventory, (Inventory) be, null);
-            } else {
-                throw new RuntimeException("Cookie Tray Block GUI activated, but the block entity is not a CookieTrayBlockEntity");
-            }
-        });
-
-        UNWRAPPED_PRESENT_GUI = ScreenHandlerRegistry.registerExtended(id("present_unwrapped"), (syncId, inventory, buf) -> {
-            BlockPos pos = buf.readBlockPos();
-            BlockEntity be = inventory.player.world.getBlockEntity(pos);
-            if (be instanceof UnwrappedPresentBlockEntity) {
-                return new UnwrappedPresentGUI(syncId, inventory, (Inventory) be, pos);
-            } else {
-                throw new RuntimeException("Unwrapped Present Block GUI activated, but the block entity is not a UnwrappedPresentBlockEntity");
-            }
-        });
+        UNWRAPPED_PRESENT_GUI = ScreenHandlerRegistry.registerExtended(id("present_unwrapped"), (syncId, inventory, buf) -> new UnwrappedPresentGUI(syncId, inventory, ScreenHandlerContext.create(inventory.player.world, buf.readBlockPos())));
 
         TrackedDataHandlerRegistry.register(CSDataSerializers.ITEMSTACK_ARRAY_4);
         NAUGHTY = new ObjectOpenHashSet<>(8);

@@ -26,6 +26,10 @@
   "mixins": [
     "cspirit.mixins.json"
   ],
+  "custom": {
+    "stopmodreposts:showToast": false,
+    "stopmodreposts:showButton": false
+  },
   "depends": {
     "fabricloader": ">=0.7.4",
     "fabric": "*",

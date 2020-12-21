@@ -2,6 +2,7 @@ package io.github.frqnny.cspirit.init;
 
 import io.github.frqnny.cspirit.ChristmasSpirit;
 import io.github.frqnny.cspirit.blockentity.WrappedPresentBlockEntity;
+import io.github.frqnny.cspirit.entity.ReindeerEntity;
 import io.github.frqnny.cspirit.present.PresentConstructor;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.block.entity.BlockEntity;
@@ -13,6 +14,8 @@ import net.minecraft.world.World;
 
 public class ModPackets {
     public static final Identifier WRAP_PACKET_ID = ChristmasSpirit.id("wrap_packet");
+    public static final Identifier REINDEER_JUMP_PACKET = ChristmasSpirit.id("reindeer_jump");
+    public static final Identifier SPAWN_PACKET_TREE = ChristmasSpirit.id("christmas_tree_spawn_packet");
 
     public static void init() {
         ServerPlayNetworking.registerGlobalReceiver(WRAP_PACKET_ID, (server, player, handler, buf, responseSender) -> {
@@ -29,6 +32,17 @@ public class ModPackets {
                     ((WrappedPresentBlockEntity) be).setPresentConstructor(presentConstructor);
                 }
                 ((Inventory) be).setStack(0, stack);
+            });
+        });
+
+        ServerPlayNetworking.registerGlobalReceiver(REINDEER_JUMP_PACKET, (server, player, handler, buf, responseSender) -> {
+
+            server.execute(() -> {
+
+                if (player != null && player.getVehicle() instanceof ReindeerEntity) {
+                    ReindeerEntity reindeer = (ReindeerEntity) player.getVehicle();
+                    reindeer.getDataTracker().set(ReindeerEntity.JUMP_KEY, buf.readBoolean());
+                }
             });
         });
     }

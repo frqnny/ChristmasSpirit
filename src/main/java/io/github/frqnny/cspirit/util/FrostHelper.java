@@ -1,7 +1,6 @@
 package io.github.frqnny.cspirit.util;
 
 import io.github.frqnny.cspirit.init.ModItems;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
 

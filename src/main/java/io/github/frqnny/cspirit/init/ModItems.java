@@ -6,7 +6,6 @@ import io.github.frqnny.cspirit.item.tier.CSArmorTiers;
 import io.github.frqnny.cspirit.item.tier.FrostmourneItem;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
 import net.minecraft.entity.EquipmentSlot;
-import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.*;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
@@ -74,32 +73,31 @@ public class ModItems {
     public static final Item SODA_SPRITE_CRANBERRY = new SodaItem(8, 0.8F);
 
     //WEARABLES
-    public static final Item CHRISTMAS_HAT = new ArmorItem(CSArmorTiers.CHRISTMAS_HAT, EquipmentSlot.HEAD, new FabricItemSettings().group(ChristmasSpirit.MAIN));
-    public static final Item BEANIE_BLACK = new ArmorItem(CSArmorTiers.BEANIE_BLACK, EquipmentSlot.HEAD, new FabricItemSettings().group(ChristmasSpirit.MAIN));
-    public static final Item BEANIE_RED = new ArmorItem(CSArmorTiers.BEANIE_RED, EquipmentSlot.HEAD, new FabricItemSettings().group(ChristmasSpirit.MAIN));
-    public static final Item BEANIE_GREEN = new ArmorItem(CSArmorTiers.BEANIE_GREEN, EquipmentSlot.HEAD, new FabricItemSettings().group(ChristmasSpirit.MAIN));
+    public static final Item CHRISTMAS_HAT = new ArmorItem(CSArmorTiers.CHRISTMAS_HAT, EquipmentSlot.HEAD, new FabricItemSettings().group(ChristmasSpirit.MAIN).maxCount(1));
+    public static final Item BEANIE_BLACK = new ArmorItem(CSArmorTiers.BEANIE_BLACK, EquipmentSlot.HEAD, new FabricItemSettings().group(ChristmasSpirit.MAIN).maxCount(1));
+    public static final Item BEANIE_RED = new ArmorItem(CSArmorTiers.BEANIE_RED, EquipmentSlot.HEAD, new FabricItemSettings().group(ChristmasSpirit.MAIN).maxCount(1));
+    public static final Item BEANIE_GREEN = new ArmorItem(CSArmorTiers.BEANIE_GREEN, EquipmentSlot.HEAD, new FabricItemSettings().group(ChristmasSpirit.MAIN).maxCount(1));
 
-    public static final Item SWEATER_BLACK = new ArmorItem(CSArmorTiers.SWEATER_BLACK, EquipmentSlot.CHEST, new FabricItemSettings().group(ChristmasSpirit.MAIN));
-    public static final Item SWEATER_RED = new ArmorItem(CSArmorTiers.SWEATER_RED, EquipmentSlot.CHEST, new FabricItemSettings().group(ChristmasSpirit.MAIN));
-    public static final Item SWEATER_GREEN = new ArmorItem(CSArmorTiers.SWEATER_GREEN, EquipmentSlot.CHEST, new FabricItemSettings().group(ChristmasSpirit.MAIN));
+    public static final Item SWEATER_BLACK = new ArmorItem(CSArmorTiers.SWEATER_BLACK, EquipmentSlot.CHEST, new FabricItemSettings().group(ChristmasSpirit.MAIN).maxCount(1));
+    public static final Item SWEATER_RED = new ArmorItem(CSArmorTiers.SWEATER_RED, EquipmentSlot.CHEST, new FabricItemSettings().group(ChristmasSpirit.MAIN).maxCount(1));
+    public static final Item SWEATER_GREEN = new ArmorItem(CSArmorTiers.SWEATER_GREEN, EquipmentSlot.CHEST, new FabricItemSettings().group(ChristmasSpirit.MAIN).maxCount(1));
 
-    public static final Item WINTER_JEANS = new ArmorItem(CSArmorTiers.WINTER_JEANS, EquipmentSlot.LEGS, new FabricItemSettings().group(ChristmasSpirit.MAIN));
+    public static final Item WINTER_JEANS = new ArmorItem(CSArmorTiers.WINTER_JEANS, EquipmentSlot.LEGS, new FabricItemSettings().group(ChristmasSpirit.MAIN).maxCount(1));
 
-    public static final Item WINTER_BOOTS = new ArmorItem(CSArmorTiers.WINTER_BOOTS, EquipmentSlot.FEET, new FabricItemSettings().group(ChristmasSpirit.MAIN));
-    public static final Item ICE_SKATES = new ArmorItem(CSArmorTiers.ICE_SKATES, EquipmentSlot.FEET, new FabricItemSettings().group(ChristmasSpirit.MAIN));
+    public static final Item WINTER_BOOTS = new ArmorItem(CSArmorTiers.WINTER_BOOTS, EquipmentSlot.FEET, new FabricItemSettings().group(ChristmasSpirit.MAIN).maxCount(1));
+    public static final Item ICE_SKATES = new ArmorItem(CSArmorTiers.ICE_SKATES, EquipmentSlot.FEET, new FabricItemSettings().group(ChristmasSpirit.MAIN).maxCount(1));
 
     //DISCS
-    public static final Item DISC_WISHBACKGROUND = new CSMusicDiscItem(15, ModSounds.WISHBACKGROUND, new FabricItemSettings().maxCount(1).group(ChristmasSpirit.MAIN).rarity(Rarity.RARE));
     public static final Item DISC_MCCHRISTMAS = new CSMusicDiscItem(15, ModSounds.MCCHRISTMAS, new FabricItemSettings().maxCount(1).group(ChristmasSpirit.MAIN).rarity(Rarity.RARE));
     public static final Item DISC_JARED = new CSMusicDiscItem(15, ModSounds.JARED, new FabricItemSettings().maxCount(1).group(ChristmasSpirit.MAIN).rarity(Rarity.RARE));
 
     //OTHER
-    public static final Item SLEIGH = new SleighItem(new FabricItemSettings().group(ChristmasSpirit.MAIN));
-    public static final Item CHRISTMAS_TREE = new ChristmasTreeItem(new FabricItemSettings().group(ChristmasSpirit.DECORATION), false);
-    public static final Item CHRISTMAS_TREE_WHITE = new ChristmasTreeItem(new FabricItemSettings().group(ChristmasSpirit.DECORATION), true);
+    public static final Item SLEIGH = new SleighItem(new FabricItemSettings().group(ChristmasSpirit.MAIN).maxCount(1));
+    public static final Item CHRISTMAS_TREE = new ChristmasTreeItem(new FabricItemSettings().group(ChristmasSpirit.DECORATION).maxCount(1), false);
+    public static final Item CHRISTMAS_TREE_WHITE = new ChristmasTreeItem(new FabricItemSettings().group(ChristmasSpirit.DECORATION).maxCount(1), true);
 
-    //public static final Item SPAWN_EGG_JACK_FROST = regItem("spawn_egg_jack_frost", () -> new ItemSpawnEggBase(InitEntityTypes.JACK_FROST));
-    //public static final Item SPAWN_EGG_REINDEER = regItem("spawn_egg_reindeer", () -> new ItemSpawnEggBase(InitEntityTypes.REINDEER));
+    public static final Item SPAWN_EGG_JACK_FROST = new SpawnEggItem(ModEntityTypes.JACK_FROST_ENTITY, 16777215, 16777215, new FabricItemSettings().group(ChristmasSpirit.MAIN));
+    public static final Item SPAWN_EGG_REINDEER = new SpawnEggItem(ModEntityTypes.REINDEER_ENTITY, 9529676, 15777462, new FabricItemSettings().group(ChristmasSpirit.MAIN));
 
     //------NAUGHTY ITEMS------\\
 
@@ -119,7 +117,7 @@ public class ModItems {
 
     //------BLOCKS------\\
 
-    public static final Item FRUITCAKE = new BlockItem(ModBlocks.FRUITCAKE, new FabricItemSettings().group(ChristmasSpirit.BAKING));
+    public static final Item FRUITCAKE = new BlockItem(ModBlocks.FRUITCAKE, new FabricItemSettings().group(ChristmasSpirit.BAKING).maxCount(1));
 
     public static final Item PRESENT_UNWRAPPED = new BlockItem(ModBlocks.PRESENT_UNWRAPPED, new FabricItemSettings().group(ChristmasSpirit.DECORATION));
 
@@ -229,14 +227,13 @@ public class ModItems {
         Registry.register(Registry.ITEM, ChristmasSpirit.id("winter_jeans"), WINTER_JEANS);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("winter_boots"), WINTER_BOOTS);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("ice_skates"), ICE_SKATES);
-        Registry.register(Registry.ITEM, ChristmasSpirit.id("disc_wishbackground"), DISC_WISHBACKGROUND);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("disc_jared"), DISC_JARED);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("disc_mcchristmas"), DISC_MCCHRISTMAS);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("sleigh"), SLEIGH);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("christmas_tree"), CHRISTMAS_TREE);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("christmas_tree_white"), CHRISTMAS_TREE_WHITE);
-        //Registry.register(Registry.ITEM, ChristmasSpirit.id("spawn_egg_jack_frost"), SPAWN_EGG_JACK_FROST);
-        //Registry.register(Registry.ITEM, ChristmasSpirit.id("spawn_egg_reindeer"), SPAWN_EGG_REINDEER);
+        Registry.register(Registry.ITEM, ChristmasSpirit.id("spawn_egg_jack_frost"), SPAWN_EGG_JACK_FROST);
+        Registry.register(Registry.ITEM, ChristmasSpirit.id("spawn_egg_reindeer"), SPAWN_EGG_REINDEER);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("lump_of_coal"), LUMP_OF_COAL);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("frost_ingot"), FROST_INGOT);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("frost_helmet"), FROST_HELMET);
@@ -283,9 +280,5 @@ public class ModItems {
         Registry.register(Registry.ITEM, ChristmasSpirit.id("reef"), REEF);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("garland"), GARLAND);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("mistletoe"), MISTLETOE);
-    }
-
-    public static FoodComponent createFoodComponent(int hunger, float saturation) {
-        return new FoodComponent.Builder().hunger(hunger).saturationModifier(saturation).build();
     }
 }

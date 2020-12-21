@@ -8,7 +8,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 
 public class ChristmasTreeItem extends Item implements IItemSpiritSupplier {
-    public static boolean white;
+    public boolean white;
 
     public ChristmasTreeItem(Settings settings, boolean bl) {
         super(settings);

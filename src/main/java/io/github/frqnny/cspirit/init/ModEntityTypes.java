@@ -1,9 +1,8 @@
 package io.github.frqnny.cspirit.init;
 
 import io.github.frqnny.cspirit.ChristmasSpirit;
-import io.github.frqnny.cspirit.entity.CandyCaneProjectileEntity;
-import io.github.frqnny.cspirit.entity.ChristmasTreeEntity;
-import io.github.frqnny.cspirit.entity.SleighEntity;
+import io.github.frqnny.cspirit.entity.*;
+import net.fabricmc.fabric.api.object.builder.v1.entity.FabricDefaultAttributeRegistry;
 import net.fabricmc.fabric.api.object.builder.v1.entity.FabricEntityTypeBuilder;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityDimensions;
@@ -15,6 +14,8 @@ public class ModEntityTypes {
     public static EntityType<CandyCaneProjectileEntity> CANDY_CANE_PROJECTILE;
     public static EntityType<ChristmasTreeEntity> CHRISTMAS_TREE;
     public static EntityType<SleighEntity> SLEIGH_ENTITY;
+    public static EntityType<JackFrostEntity> JACK_FROST_ENTITY;
+    public static EntityType<ReindeerEntity> REINDEER_ENTITY;
 
     public static void init() {
         CANDY_CANE_PROJECTILE = register("candy_cane_projectile",
@@ -33,7 +34,18 @@ public class ModEntityTypes {
                         .dimensions(EntityDimensions.fixed(1.95F, 1.95F))
                         .build()
         );
-
+        JACK_FROST_ENTITY = register("jack_frost",
+                FabricEntityTypeBuilder.<JackFrostEntity>create(SpawnGroup.MONSTER, JackFrostEntity::new)
+                        .dimensions(EntityDimensions.fixed(0.8F, 1.8F))
+                        .build()
+        );
+        FabricDefaultAttributeRegistry.register(JACK_FROST_ENTITY, JackFrostEntity.createJackFrostAttributes());
+        REINDEER_ENTITY = register("reindeer",
+                FabricEntityTypeBuilder.<ReindeerEntity>create(SpawnGroup.CREATURE, ReindeerEntity::new)
+                        .dimensions(EntityDimensions.fixed(0.8F, 1.8F))
+                        .build()
+        );
+        FabricDefaultAttributeRegistry.register(REINDEER_ENTITY, ReindeerEntity.createReindeerAttributes());
 
     }
 

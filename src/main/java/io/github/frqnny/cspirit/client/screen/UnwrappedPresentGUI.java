@@ -12,11 +12,15 @@ import io.github.frqnny.cspirit.init.ModSounds;
 import io.github.frqnny.cspirit.present.PresentConstructor;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
+import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.PacketByteBuf;
+import net.minecraft.screen.ScreenHandlerContext;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.LiteralText;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
@@ -25,18 +29,20 @@ import java.util.function.Function;
 
 public class UnwrappedPresentGUI extends SyncedGuiDescription {
 
-    private final BlockPos pos;
+    private  BlockPos pos;
     private final Inventory inv;
     private final PresentConstructor constructor;
     private final WTextField textField;
     private final PlayerEntity player;
 
-    public UnwrappedPresentGUI(int syncId, PlayerInventory playerInventory, Inventory blockInventory, BlockPos pos) {
-        super(ChristmasSpirit.UNWRAPPED_PRESENT_GUI, syncId, playerInventory, blockInventory, null);
+    public UnwrappedPresentGUI(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
+        super(ChristmasSpirit.UNWRAPPED_PRESENT_GUI, syncId, playerInventory, getBlockInventory(context), null);
         constructor = new PresentConstructor();
-        inv = blockInventory;
+        inv = getBlockInventory(context);
         player = playerInventory.player;
-        this.pos = pos;
+        context.run((world, pos) -> {
+            this.pos = pos;
+        });
 
         WGridPanel root = new WGridPanel(1);
         setRootPanel(root);
@@ -63,6 +69,7 @@ public class UnwrappedPresentGUI extends SyncedGuiDescription {
         root.validate(this);
 
     }
+
 
     public Function<Integer, String> cycleThroughDays() {
         return (id) -> {
@@ -115,6 +122,11 @@ public class UnwrappedPresentGUI extends SyncedGuiDescription {
             player.playSound(ModSounds.PRESENT_WRAP, 1, 1);
 
             this.close(player);
+            if (player instanceof ServerPlayerEntity) {
+                ((ServerPlayerEntity)player).closeHandledScreen();
+            } else if (player instanceof ClientPlayerEntity) {
+                ((ClientPlayerEntity) player).closeHandledScreen();
+            }
         }
     }
 }

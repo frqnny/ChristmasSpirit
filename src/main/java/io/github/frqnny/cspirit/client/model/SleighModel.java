@@ -2,7 +2,6 @@ package io.github.frqnny.cspirit.client.model;
 
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.VertexConsumer;
-import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.model.EntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.Entity;
@@ -528,7 +527,7 @@ public class SleighModel extends EntityModel<Entity> {
 
 
     @Override
-    public void render(MatrixStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha){
+    public void render(MatrixStack matrixStack, VertexConsumer buffer, int packedLight, int packedOverlay, float red, float green, float blue, float alpha) {
         Body.render(matrixStack, buffer, packedLight, packedOverlay);
         Skate.render(matrixStack, buffer, packedLight, packedOverlay);
         Skate2.render(matrixStack, buffer, packedLight, packedOverlay);

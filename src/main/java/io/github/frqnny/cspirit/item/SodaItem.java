@@ -23,6 +23,11 @@ public class SodaItem extends CSFoodItem {
         super(hunger, saturation, 1, 2, true);
     }
 
+    private static boolean isOpened(ItemStack stack) {
+        CompoundTag nbt = ItemHelper.getNBT(stack);
+        return nbt.getBoolean("Opened");
+    }
+
     @Override
     public void appendTooltip(ItemStack stack, @Nullable World world, List<Text> tooltip, TooltipContext context) {
         super.appendTooltip(stack, world, tooltip, context);
@@ -48,11 +53,6 @@ public class SodaItem extends CSFoodItem {
         }
 
         return super.finishUsing(stack, world, entityLiving);
-    }
-
-    private static boolean isOpened(ItemStack stack) {
-        CompoundTag nbt = ItemHelper.getNBT(stack);
-        return nbt.getBoolean("Opened");
     }
 
     @Override

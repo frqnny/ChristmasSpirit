@@ -2,10 +2,7 @@ package io.github.frqnny.cspirit.mixin;
 
 import io.github.frqnny.cspirit.ChristmasSpirit;
 import io.github.frqnny.cspirit.init.ModEffects;
-import io.github.frqnny.cspirit.util.EffectHelper;
-import io.github.frqnny.cspirit.util.FrostHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,6 +22,7 @@ public class ItemMixin {
                 PlayerEntity player = (PlayerEntity) entity;
                 ItemStack stackToThrow = stack.copy();
                 player.inventory.setStack(slot, ItemStack.EMPTY);
+                stack.setCount(0);
                 player.dropItem(stackToThrow, true, true);
             }
         }
