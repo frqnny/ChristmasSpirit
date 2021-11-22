@@ -6,7 +6,7 @@ import net.minecraft.client.item.TooltipContext;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
@@ -24,7 +24,7 @@ public class SodaItem extends CSFoodItem {
     }
 
     private static boolean isOpened(ItemStack stack) {
-        CompoundTag nbt = ItemHelper.getNBT(stack);
+        NbtCompound nbt = ItemHelper.getNBT(stack);
         return nbt.getBoolean("Opened");
     }
 
@@ -44,7 +44,7 @@ public class SodaItem extends CSFoodItem {
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity entityLiving) {
         if (!isOpened(stack)) {
 
-            CompoundTag nbt = ItemHelper.getNBT(stack);
+            NbtCompound nbt = ItemHelper.getNBT(stack);
             nbt.putBoolean("Opened", true);
 
             entityLiving.playSound(ModSounds.CAN_OPEN, 1, 1);

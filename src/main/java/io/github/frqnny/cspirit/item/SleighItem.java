@@ -14,7 +14,7 @@ public class SleighItem extends Item {
     public ActionResult useOnBlock(ItemUsageContext context) {
         if (context.getPlayer() != null) {
             SleighEntity sleigh = new SleighEntity(context.getWorld(), context.getHitPos().x, context.getHitPos().y, context.getHitPos().z);
-            sleigh.yaw = context.getPlayer().yaw;
+            sleigh.setYaw(context.getPlayerYaw());
             context.getWorld().spawnEntity(sleigh);
             context.getStack().decrement(1);
 

@@ -3,7 +3,7 @@ package io.github.frqnny.cspirit.data;
 import com.google.gson.reflect.TypeToken;
 import io.github.frqnny.cspirit.util.FileHelper;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.registry.Registry;
 
@@ -104,7 +104,7 @@ public class SantaGiftListFile {
             this.maxDay = maxDay;
         }
 
-        public static GiftEntry readFromNBT(CompoundTag nbt) {
+        public static GiftEntry readFromNBT(NbtCompound nbt) {
             return new GiftEntry(nbt.getString("stackStr"), nbt.getInt("maxAmount"), nbt.getInt("rarityIndex"), nbt.getInt("minDay"), nbt.getInt("maxDay"));
         }
 
@@ -112,8 +112,8 @@ public class SantaGiftListFile {
             return new ItemStack(Registry.ITEM.get(new Identifier(stackStr)));
         }
 
-        public CompoundTag writeToNBT() {
-            CompoundTag nbt = new CompoundTag();
+        public NbtCompound writeToNBT() {
+            NbtCompound nbt = new NbtCompound();
             nbt.putString("stackStr", stackStr);
             nbt.putInt("maxAmount", maxAmount);
             nbt.putInt("rarityIndex", rarityIndex);

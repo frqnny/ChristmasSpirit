@@ -6,7 +6,7 @@ import io.github.frqnny.cspirit.util.ItemHelper;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -65,12 +65,12 @@ public class PresentConstructor {
     }
 
     public void toStack(ItemStack stack) {
-        CompoundTag nbt = ItemHelper.getNBT(stack);
+        NbtCompound nbt = ItemHelper.getNBT(stack);
         toNBT(nbt);
     }
 
     public static PresentConstructor fromStack(ItemStack stack) {
-        CompoundTag nbt = ItemHelper.getNBT(stack);
+        NbtCompound nbt = ItemHelper.getNBT(stack);
         return fromNBT(nbt);
     }
 
@@ -105,7 +105,7 @@ public class PresentConstructor {
         return constructor;
     }
 
-    public static PresentConstructor fromNBT(CompoundTag nbt) {
+    public static PresentConstructor fromNBT(NbtCompound nbt) {
         PresentConstructor constructor = new PresentConstructor();
         constructor.fromPlayerName = nbt.getString("Present-FromPlayerName");
         constructor.toPlayerName = nbt.getString("Present-ToPlayerName");
@@ -115,7 +115,7 @@ public class PresentConstructor {
     }
 
     public static PresentConstructor fromStack(ItemStack stack) {
-        CompoundTag nbt = ItemHelper.getNBT(stack);
+        NbtCompound nbt = ItemHelper.getNBT(stack);
         return fromNBT(nbt);
     }
 
@@ -124,7 +124,7 @@ public class PresentConstructor {
     }
 
     public void toStack(ItemStack stack) {
-        CompoundTag nbt = ItemHelper.getNBT(stack);
+        NbtCompound nbt = ItemHelper.getNBT(stack);
         toNBT(nbt);
     }
 
@@ -139,7 +139,7 @@ public class PresentConstructor {
         buf.writeInt(styleIndex);
     }
 
-    public void toNBT(CompoundTag nbt) {
+    public void toNBT(NbtCompound nbt) {
         nbt.putString("Present-FromPlayerName", fromPlayerName);
         nbt.putString("Present-ToPlayerName", toPlayerName);
         nbt.putInt("Present-Day", day);

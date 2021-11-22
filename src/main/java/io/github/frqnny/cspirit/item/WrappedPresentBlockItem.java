@@ -12,7 +12,7 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -47,13 +47,13 @@ public class WrappedPresentBlockItem extends BlockItem {
         PresentConstructor constructor = PresentConstructor.fromStack(context.getStack());
         constructor.toBlock(world, pos);
 
-        CompoundTag nbt = ItemHelper.getNBT(context.getStack());
-        CompoundTag compoundnbt = nbt.getList("Items", 10).getCompound(0);
+        NbtCompound nbt = ItemHelper.getNBT(context.getStack());
+        NbtCompound compoundnbt = nbt.getList("Items", 10).getCompound(0);
         BlockEntity newBe = world.getBlockEntity(pos);
 
         if (newBe instanceof WrappedPresentBlockEntity) {
             Inventory inventory = (WrappedPresentBlockEntity) newBe;
-            inventory.setStack(0, ItemStack.fromTag(compoundnbt));
+            inventory.setStack(0, ItemStack.fromNbt(compoundnbt));
         }
 
         return b;

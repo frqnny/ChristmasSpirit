@@ -27,8 +27,8 @@ public class UnwrappedPresentBlock extends Block implements BlockEntityProvider 
 
     @Nullable
     @Override
-    public BlockEntity createBlockEntity(BlockView world) {
-        return new UnwrappedPresentBlockEntity();
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new UnwrappedPresentBlockEntity(pos, state);
     }
 
     @Override

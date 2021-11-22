@@ -1,7 +1,10 @@
 package io.github.frqnny.cspirit.client.model;
 
 import com.google.common.collect.ImmutableList;
+import net.minecraft.client.model.Dilation;
+import net.minecraft.client.model.ModelData;
 import net.minecraft.client.model.ModelPart;
+import net.minecraft.client.model.ModelPartData;
 import net.minecraft.client.render.entity.model.HorseEntityModel;
 import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.util.math.MathHelper;
@@ -22,10 +25,8 @@ public class ReindeerModel<T extends HorseBaseEntity> extends HorseEntityModel<T
     private final ModelPart[] field_217134_k;
     private final ModelPart[] field_217135_l;
 
-    public ReindeerModel(float scale) {
-        super(scale);
-        this.textureWidth = 64;
-        this.textureHeight = 64;
+    public ReindeerModel(ModelPart root) {
+        super(root);
         this.body = new ModelPart(this, 0, 32);
         this.body.addCuboid(-5.0F, -8.0F, -17.0F, 10.0F, 10.0F, 22.0F, 0.05F);
         this.body.setPivot(0.0F, 11.0F, 5.0F);
@@ -116,6 +117,14 @@ public class ReindeerModel<T extends HorseBaseEntity> extends HorseEntityModel<T
         this.field_217135_l = new ModelPart[]{modelrenderer6, modelrenderer7};
     }
 
+
+    public static ModelData getModelData(Dilation dilation) {
+        ModelData modelData = new ModelData();
+        ModelPartData root = modelData.getRoot();
+        root.addChild()
+    }
+
+    /*
     @Override
     protected void method_2789(ModelPart modelPart) {
         ModelPart modelrenderer = new ModelPart(this, 19, 16);
@@ -125,6 +134,8 @@ public class ReindeerModel<T extends HorseBaseEntity> extends HorseEntityModel<T
         modelPart.addChild(modelrenderer);
         modelPart.addChild(modelrenderer1);
     }
+
+     */
 
     @Override
     public void setAngles(T horseBaseEntity, float f, float g, float h, float i, float j) {
@@ -156,7 +167,7 @@ public class ReindeerModel<T extends HorseBaseEntity> extends HorseEntityModel<T
         super.animateModel(horseBaseEntity, limbSwing, limbSwingAmount, partialTick);
         float f = MathHelper.lerpAngle(horseBaseEntity.prevBodyYaw, horseBaseEntity.bodyYaw, partialTick);
         float f1 = MathHelper.lerpAngle(horseBaseEntity.prevHeadYaw, horseBaseEntity.headYaw, partialTick);
-        float f2 = MathHelper.lerp(partialTick, horseBaseEntity.prevPitch, horseBaseEntity.pitch);
+        float f2 = MathHelper.lerp(partialTick, horseBaseEntity.prevPitch, horseBaseEntity.getPitch());
         float f3 = f1 - f;
         float f4 = f2 * ((float) Math.PI / 180F);
         if (f3 > 20.0F) {

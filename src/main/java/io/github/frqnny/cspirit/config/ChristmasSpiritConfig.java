@@ -1,13 +1,16 @@
 package io.github.frqnny.cspirit.config;
 
-import me.sargunvohra.mcmods.autoconfig1u.ConfigData;
-import me.sargunvohra.mcmods.autoconfig1u.annotation.Config;
-import me.sargunvohra.mcmods.autoconfig1u.shadowed.blue.endless.jankson.Comment;
+import draylar.omegaconfig.api.Comment;
+import draylar.omegaconfig.api.Config;
 
-@Config(name = "cspirit/main-config-file")
-public class ChristmasSpiritConfig implements ConfigData {
+public class ChristmasSpiritConfig implements Config {
     public WorldGen worldGen = new WorldGen();
     public Misc misc = new Misc();
+
+    @Override
+    public String getName() {
+        return "cspirit/main-config-file";
+    }
 
     public static class WorldGen {
         @Comment("This option allows you to turn off the world freezer, so it does not snow or generate with snow")

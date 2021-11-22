@@ -12,7 +12,6 @@ import io.github.frqnny.cspirit.init.ModSounds;
 import io.github.frqnny.cspirit.present.PresentConstructor;
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
-import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
@@ -29,11 +28,11 @@ import java.util.function.Function;
 
 public class UnwrappedPresentGUI extends SyncedGuiDescription {
 
-    private  BlockPos pos;
     private final Inventory inv;
     private final PresentConstructor constructor;
     private final WTextField textField;
     private final PlayerEntity player;
+    private BlockPos pos;
 
     public UnwrappedPresentGUI(int syncId, PlayerInventory playerInventory, ScreenHandlerContext context) {
         super(ChristmasSpirit.UNWRAPPED_PRESENT_GUI, syncId, playerInventory, getBlockInventory(context), null);
@@ -123,7 +122,7 @@ public class UnwrappedPresentGUI extends SyncedGuiDescription {
 
             this.close(player);
             if (player instanceof ServerPlayerEntity) {
-                ((ServerPlayerEntity)player).closeHandledScreen();
+                ((ServerPlayerEntity) player).closeHandledScreen();
             } else if (player instanceof ClientPlayerEntity) {
                 ((ClientPlayerEntity) player).closeHandledScreen();
             }

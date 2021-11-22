@@ -21,7 +21,7 @@ public class ItemMixin {
             if (!((PlayerEntity) entity).hasStatusEffect(ModEffects.NAUGHTY_EFFECT)) {
                 PlayerEntity player = (PlayerEntity) entity;
                 ItemStack stackToThrow = stack.copy();
-                player.inventory.setStack(slot, ItemStack.EMPTY);
+                player.getInventory().setStack(slot, ItemStack.EMPTY);
                 stack.setCount(0);
                 player.dropItem(stackToThrow, true, true);
             }

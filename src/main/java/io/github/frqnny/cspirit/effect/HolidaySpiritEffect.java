@@ -1,11 +1,11 @@
 package io.github.frqnny.cspirit.effect;
 
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectType;
+import net.minecraft.entity.effect.StatusEffectCategory;
 
 public class HolidaySpiritEffect extends StatusEffect {
     public HolidaySpiritEffect() {
-        super(StatusEffectType.BENEFICIAL, 0);
+        super(StatusEffectCategory.BENEFICIAL, 0);
     }
 
     @Override

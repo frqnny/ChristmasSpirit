@@ -48,10 +48,11 @@ public class CandyCaneCannonItem extends Item {
         if (hand == Hand.MAIN_HAND) {
 
             ItemStack candyCaneStack = ItemStack.EMPTY;
+            int size = user.getInventory().size();
 
-            for (int i = 0; i < user.inventory.size(); i++) {
+            for (int i = 0; i < size; i++) {
 
-                ItemStack stackInSlot = user.inventory.getStack(i);
+                ItemStack stackInSlot = user.getInventory().getStack(i);
 
                 if (stackInSlot.getItem() instanceof CandyCaneItem) {
                     candyCaneStack = stackInSlot;
@@ -77,9 +78,10 @@ public class CandyCaneCannonItem extends Item {
 
                 ItemStack candyCaneStack = ItemStack.EMPTY;
 
-                for (int i = 0; i < player.inventory.size(); i++) {
+                int size = player.getInventory().size();
+                for (int i = 0; i < size; i++) {
 
-                    ItemStack stackInSlot = player.inventory.getStack(i);
+                    ItemStack stackInSlot = player.getInventory().getStack(i);
 
                     if (stackInSlot.getItem() instanceof CandyCaneItem) {
                         candyCaneStack = stackInSlot;
@@ -99,7 +101,7 @@ public class CandyCaneCannonItem extends Item {
 
                     CandyCaneProjectileEntity entity = new CandyCaneProjectileEntity(world, player, candyType);
                     entity.setCritical(true);
-                    entity.setProperties(player, player.pitch, player.yaw, 0.0F, 3, 1.0F);
+                    entity.setVelocity(player, player.getPitch(), player.getYaw(), 0.0F, 3, 1.0F);
                     entity.
                             world.spawnEntity(entity);
                     candyCaneStack.decrement(1);

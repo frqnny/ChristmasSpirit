@@ -10,14 +10,14 @@ import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.entity.EntityRenderDispatcher;
 import net.minecraft.client.render.entity.EntityRenderer;
+import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.math.Vec3f;
 
 import java.util.Random;
 
@@ -27,15 +27,36 @@ public class ChristmasTreeEntityRenderer extends EntityRenderer<ChristmasTreeEnt
     private static final Identifier TEXTURE_WHITE = ChristmasSpirit.id("textures/entity/christmas_tree_white.png");
     private final ChristmasTreeModel christmasTree = new ChristmasTreeModel();
 
-    public ChristmasTreeEntityRenderer(EntityRenderDispatcher renderManager) {
+    public ChristmasTreeEntityRenderer(EntityRendererFactory.Context renderManager) {
         super(renderManager);
+    }
+
+    private static void renderDecoration(ItemStack stack, float yRot, float x, float y, float z, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider buffer, int combinedLight) {
+
+        matrixStack.push();
+        matrixStack.scale(2.4F, 2.4F, 2.4F);
+        matrixStack.translate(x, y, z);
+        matrixStack.multiply(Vec3f.POSITIVE_Y.getDegreesQuaternion(yRot * 360 * 8));
+
+        if (Block.getBlockFromItem(stack.getItem()) != ModBlocks.ORNAMENT_RED && Block.getBlockFromItem(stack.getItem()) != ModBlocks.ORNAMENT_GREEN && Block.getBlockFromItem(stack.getItem()) != ModBlocks.ORNAMENT_BLUE) {
+
+            if (stack.getItem() != ModItems.CHRISTMAS_LIGHT_WHITE && stack.getItem() != ModItems.CHRISTMAS_LIGHT_RED && stack.getItem() != ModItems.CHRISTMAS_LIGHT_GREEN && stack.getItem() != ModItems.CHRISTMAS_LIGHT_BLUE) {
+
+                if (Block.getBlockFromItem(stack.getItem()) != ModBlocks.STAR) {
+                    matrixStack.scale(0.5F, 0.5F, 0.5F);
+                }
+            }
+        }
+
+        MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.GROUND, combinedLight, OverlayTexture.DEFAULT_UV, matrixStack, buffer, 0);
+        matrixStack.pop();
     }
 
     @Override
     public void render(ChristmasTreeEntity entity, float yaw, float tickDelta, MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light) {
         if (entity.hasStar()) {
             matrices.push();
-            matrices.multiply(Vector3f.NEGATIVE_Y.getDegreesQuaternion(yaw));
+            matrices.multiply(Vec3f.NEGATIVE_Y.getDegreesQuaternion(yaw));
             renderDecoration(entity.getItemStackFromSlot(EquipmentSlot.HEAD), 0, 0, 1.235F, 0, tickDelta, matrices, vertexConsumers, light);
             matrices.pop();
         }
@@ -136,27 +157,6 @@ public class ChristmasTreeEntityRenderer extends EntityRenderer<ChristmasTreeEnt
         christmasTree.render(matrices, ivertexbuilder, light, OverlayTexture.DEFAULT_UV, 1.0F, 1.0F, 1.0F, 1.0F);
 
         matrices.pop();
-    }
-
-    private void renderDecoration(ItemStack stack, float yRot, float x, float y, float z, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider buffer, int combinedLight) {
-
-        matrixStack.push();
-        matrixStack.scale(2.4F, 2.4F, 2.4F);
-        matrixStack.translate(x, y, z);
-        matrixStack.multiply(Vector3f.POSITIVE_Y.getDegreesQuaternion(yRot * 360 * 8));
-
-        if (Block.getBlockFromItem(stack.getItem()) != ModBlocks.ORNAMENT_RED && Block.getBlockFromItem(stack.getItem()) != ModBlocks.ORNAMENT_GREEN && Block.getBlockFromItem(stack.getItem()) != ModBlocks.ORNAMENT_BLUE) {
-
-            if (stack.getItem() != ModItems.CHRISTMAS_LIGHT_WHITE && stack.getItem() != ModItems.CHRISTMAS_LIGHT_RED && stack.getItem() != ModItems.CHRISTMAS_LIGHT_GREEN && stack.getItem() != ModItems.CHRISTMAS_LIGHT_BLUE) {
-
-                if (Block.getBlockFromItem(stack.getItem()) != ModBlocks.STAR) {
-                    matrixStack.scale(0.5F, 0.5F, 0.5F);
-                }
-            }
-        }
-
-        MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.GROUND, combinedLight, OverlayTexture.DEFAULT_UV, matrixStack, buffer);
-        matrixStack.pop();
     }
 
     @Override

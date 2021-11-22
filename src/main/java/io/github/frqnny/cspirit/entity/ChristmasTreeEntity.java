@@ -6,7 +6,6 @@ import io.github.frqnny.cspirit.init.ModItems;
 import io.github.frqnny.cspirit.init.ModPackets;
 import io.github.frqnny.cspirit.util.EffectHelper;
 import io.github.frqnny.cspirit.util.ItemHelper;
-import io.github.frqnny.cspirit.util.PacketHelper;
 import io.netty.buffer.Unpooled;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.Entity;
@@ -20,7 +19,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.AxeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.sound.SoundEvents;
@@ -48,6 +47,17 @@ public class ChristmasTreeEntity extends Entity {
         this.white_what = isWhite;
     }
 
+    public static EquipmentSlot getSlotTypeFromID(int id) {
+
+        return switch (id) {
+            case 0 -> EquipmentSlot.FEET;
+            case 1 -> EquipmentSlot.LEGS;
+            case 2 -> EquipmentSlot.CHEST;
+            default -> EquipmentSlot.HEAD;
+        };
+
+    }
+
     public boolean isWhite() {
         return dataTracker.get(WHITE);
     }
@@ -63,20 +73,6 @@ public class ChristmasTreeEntity extends Entity {
 
     public ItemStack getItemStackFromID(int id) {
         return getItemStackFromSlot(getSlotTypeFromID(id));
-    }
-
-    public EquipmentSlot getSlotTypeFromID(int id) {
-
-        switch (id) {
-            case 0:
-                return EquipmentSlot.FEET;
-            case 1:
-                return EquipmentSlot.LEGS;
-            case 2:
-                return EquipmentSlot.CHEST;
-        }
-
-        return EquipmentSlot.HEAD;
     }
 
     public void setItemStackToSlot(EquipmentSlot slotIn, ItemStack stack) {
@@ -206,7 +202,7 @@ public class ChristmasTreeEntity extends Entity {
                     playSound(SoundEvents.BLOCK_GRASS_BREAK, 1, 1);
                 }
 
-                remove();
+                remove(RemovalReason.DISCARDED);
             }
 
             return true;
@@ -223,13 +219,13 @@ public class ChristmasTreeEntity extends Entity {
     }
 
     @Override
-    protected void readCustomDataFromTag(CompoundTag tag) {
+    public void readCustomDataFromNbt(NbtCompound tag) {
         DefaultedList<ItemStack> newInv = DefaultedList.ofSize(4, ItemStack.EMPTY);
 
-        newInv.set(0, ItemStack.fromTag(tag.getCompound("Head")));
-        newInv.set(1, ItemStack.fromTag(tag.getCompound("Chest")));
-        newInv.set(2, ItemStack.fromTag(tag.getCompound("Legs")));
-        newInv.set(3, ItemStack.fromTag(tag.getCompound("Feet")));
+        newInv.set(0, ItemStack.fromNbt(tag.getCompound("Head")));
+        newInv.set(1, ItemStack.fromNbt(tag.getCompound("Chest")));
+        newInv.set(2, ItemStack.fromNbt(tag.getCompound("Legs")));
+        newInv.set(3, ItemStack.fromNbt(tag.getCompound("Feet")));
 
         dataTracker.set(INVENTORY, newInv);
 
@@ -237,21 +233,21 @@ public class ChristmasTreeEntity extends Entity {
     }
 
     @Override
-    protected void writeCustomDataToTag(CompoundTag tag) {
-        CompoundTag headTag = new CompoundTag();
-        CompoundTag chestTag = new CompoundTag();
-        CompoundTag legsTag = new CompoundTag();
-        CompoundTag feetTag = new CompoundTag();
-        dataTracker.get(INVENTORY).get(0).toTag(headTag);
-        dataTracker.get(INVENTORY).get(1).toTag(chestTag);
-        dataTracker.get(INVENTORY).get(2).toTag(legsTag);
-        dataTracker.get(INVENTORY).get(3).toTag(feetTag);
-        tag.put("Head", headTag);
-        tag.put("Chest", chestTag);
-        tag.put("Legs", legsTag);
-        tag.put("Feet", feetTag);
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        NbtCompound headTag = new NbtCompound();
+        NbtCompound chestTag = new NbtCompound();
+        NbtCompound legsTag = new NbtCompound();
+        NbtCompound feetTag = new NbtCompound();
+        dataTracker.get(INVENTORY).get(0).setNbt(headTag);
+        dataTracker.get(INVENTORY).get(1).setNbt(chestTag);
+        dataTracker.get(INVENTORY).get(2).setNbt(legsTag);
+        dataTracker.get(INVENTORY).get(3).setNbt(feetTag);
+        nbt.put("Head", headTag);
+        nbt.put("Chest", chestTag);
+        nbt.put("Legs", legsTag);
+        nbt.put("Feet", feetTag);
 
-        tag.putBoolean("White", dataTracker.get(WHITE));
+        nbt.putBoolean("White", dataTracker.get(WHITE));
     }
 
     @Override
@@ -260,7 +256,7 @@ public class ChristmasTreeEntity extends Entity {
         buf.writeDouble(getX());
         buf.writeDouble(getY());
         buf.writeDouble(getZ());
-        buf.writeInt(getEntityId());
+        buf.writeInt(this.getId());
         buf.writeUuid(getUuid());
         buf.writeBoolean(this.dataTracker.get(WHITE));
         return ServerPlayNetworking.createS2CPacket(ModPackets.SPAWN_PACKET_TREE, buf);
@@ -276,10 +272,13 @@ public class ChristmasTreeEntity extends Entity {
         return true;
     }
 
-    @Override
+    //TODO
+    /*
     protected boolean canClimb() {
         return false;
     }
+
+     */
 
     @Override
     public float getTargetingMargin() {

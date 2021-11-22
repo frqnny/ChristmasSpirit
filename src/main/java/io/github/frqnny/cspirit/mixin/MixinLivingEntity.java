@@ -73,13 +73,13 @@ public abstract class MixinLivingEntity {
 
                         PlayerEntity player = ((PlayerEntity) ((Object) this));
 
-                        for (int i = 0; i < player.inventory.size(); i++) {
+                        for (int i = 0; i < player.getInventory().size(); i++) {
 
-                            ItemStack stackInSlot = player.inventory.getStack(i);
+                            ItemStack stackInSlot = player.getInventory().getStack(i);
 
                             if (ChristmasSpirit.NAUGHTY.contains(stackInSlot.getItem())) {
 
-                                player.inventory.setStack(i, ItemStack.EMPTY);
+                                player.getInventory().setStack(i, ItemStack.EMPTY);
                             }
                         }
                     }

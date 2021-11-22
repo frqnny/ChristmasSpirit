@@ -14,7 +14,7 @@ import net.minecraft.inventory.Inventories;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
@@ -40,10 +40,10 @@ public class WrappedPresentBlock extends UnwrappedPresentBlock implements BlockE
 
         constructor.toStack(stack);
 
-        CompoundTag nbt = ItemHelper.getNBT(stack);
+        NbtCompound nbt = ItemHelper.getNBT(stack);
         DefaultedList<ItemStack> giftList = DefaultedList.of();
         giftList.add(0, giftStack);
-        Inventories.toTag(nbt, giftList);
+        Inventories.writeNbt(nbt, giftList);
 
         ItemHelper.spawnStack(world, pos.getX(), pos.getY(), pos.getZ(), stack);
     }
@@ -70,7 +70,7 @@ public class WrappedPresentBlock extends UnwrappedPresentBlock implements BlockE
                     spawnPresent(world, pos, present.getPresentConstructor(), ((Inventory) present).getStack(0));
                     world.setBlockState(pos, Blocks.AIR.getDefaultState());
                 } else {
-                    present.getUnitName(player).printMessage(Formatting.RED, "This present belongs to " + present.getPresentConstructor().toPlayerName + "! You can't pick it up!");
+                    WrappedPresentBlockEntity.getUnitName(player).printMessage(Formatting.RED, "This present belongs to " + present.getPresentConstructor().toPlayerName + "! You can't pick it up!");
                     world.setBlockState(pos, present.getPresentConstructor().getStyle().getBlock().getDefaultState());
                     ((WrappedPresentBlockEntity) world.getBlockEntity(pos)).setPresentConstructor(present.getPresentConstructor());
                 }
@@ -88,9 +88,9 @@ public class WrappedPresentBlock extends UnwrappedPresentBlock implements BlockE
                 WrappedPresentBlockEntity present = (WrappedPresentBlockEntity) be;
 
                 if (player.isSneaking()) {
-                    present.getUnitName(player).printMessage(Formatting.WHITE, "From: " + present.getPresentConstructor().fromPlayerName);
-                    present.getUnitName(player).printMessage(Formatting.WHITE, "To: " + present.getPresentConstructor().toPlayerName);
-                    present.getUnitName(player).printMessage(Formatting.WHITE, "Open on the " + TimeHelper.getFormattedDay(present.getPresentConstructor().getActualDay()));
+                    WrappedPresentBlockEntity.getUnitName(player).printMessage(Formatting.WHITE, "From: " + present.getPresentConstructor().fromPlayerName);
+                    WrappedPresentBlockEntity.getUnitName(player).printMessage(Formatting.WHITE, "To: " + present.getPresentConstructor().toPlayerName);
+                    WrappedPresentBlockEntity.getUnitName(player).printMessage(Formatting.WHITE, "Open on the " + TimeHelper.getFormattedDay(present.getPresentConstructor().getActualDay()));
                 } else if (player.getDisplayName().getString().equalsIgnoreCase(present.getPresentConstructor().toPlayerName) || present.getPresentConstructor().toPlayerName.equalsIgnoreCase("anybody")) {
 
                     if (TimeHelper.getCurrentDay() >= present.getPresentConstructor().getActualDay()) {
@@ -107,11 +107,11 @@ public class WrappedPresentBlock extends UnwrappedPresentBlock implements BlockE
                         player.playSound(ModSounds.PRESENT_UNWRAP, 1, 1);
                         SoundHelper.sendSoundToClient((ServerPlayerEntity) player, ModSounds.PRESENT_UNWRAP);
                     } else {
-                        present.getUnitName(player).printMessage(Formatting.RED, "You can't open this present yet!");
-                        present.getUnitName(player).printMessage(Formatting.RED, "You must wait until the " + TimeHelper.getFormattedDay(present.getPresentConstructor().getActualDay()) + "!");
+                        WrappedPresentBlockEntity.getUnitName(player).printMessage(Formatting.RED, "You can't open this present yet!");
+                        WrappedPresentBlockEntity.getUnitName(player).printMessage(Formatting.RED, "You must wait until the " + TimeHelper.getFormattedDay(present.getPresentConstructor().getActualDay()) + "!");
                     }
                 } else {
-                    present.getUnitName(player).printMessage(Formatting.RED, "This present belongs to " + present.getPresentConstructor().toPlayerName + "! You can't open it!");
+                    WrappedPresentBlockEntity.getUnitName(player).printMessage(Formatting.RED, "This present belongs to " + present.getPresentConstructor().toPlayerName + "! You can't open it!");
                 }
             }
         }
@@ -120,17 +120,12 @@ public class WrappedPresentBlock extends UnwrappedPresentBlock implements BlockE
     }
 
     @Override
-    public void onStateReplaced(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-
-    }
-
-    @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return SHAPE;
     }
 
     @Override
-    public @Nullable BlockEntity createBlockEntity(BlockView world) {
-        return new WrappedPresentBlockEntity();
+    public @Nullable BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new WrappedPresentBlockEntity(pos, state);
     }
 }

@@ -10,6 +10,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.Flutterer;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
+import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
 import net.minecraft.entity.data.TrackedDataHandlerRegistry;
@@ -19,7 +20,7 @@ import net.minecraft.entity.mob.MobEntity;
 import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.entity.passive.HorseEntity;
 import net.minecraft.entity.passive.PassiveEntity;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundEvents;
@@ -66,9 +67,7 @@ public class ReindeerEntity extends HorseEntity implements Flutterer {
 
                 if (getPrimaryPassenger() != null) {
 
-                    if (getPrimaryPassenger() instanceof ClientPlayerEntity) {
-
-                        ClientPlayerEntity player = (ClientPlayerEntity) getPrimaryPassenger();
+                    if (getPrimaryPassenger() instanceof ClientPlayerEntity player) {
 
                         if (isSaddled()) {
 
@@ -119,7 +118,7 @@ public class ReindeerEntity extends HorseEntity implements Flutterer {
     }
 
     @Override
-    public boolean handleFallDamage(float fallDistance, float damageMultiplier) {
+    public boolean handleFallDamage(float fallDistance, float damageMultiplier, DamageSource damageSource) {
         if (ChristmasSpirit.getConfig().misc.reindeerFlying) {
 
             if (fallDistance > 1.0F) {
@@ -127,8 +126,9 @@ public class ReindeerEntity extends HorseEntity implements Flutterer {
             }
 
             return false;
-        } else return super.handleFallDamage(fallDistance, damageMultiplier);
+        } else return super.handleFallDamage(fallDistance, damageMultiplier, damageSource);
     }
+
 
     @Override
     public PassiveEntity createChild(ServerWorld world, PassiveEntity entity) {
@@ -153,15 +153,15 @@ public class ReindeerEntity extends HorseEntity implements Flutterer {
     }
 
     @Override
-    public void readCustomDataFromTag(CompoundTag tag) {
-        super.readCustomDataFromTag(tag);
-        dataTracker.set(JUMP_KEY, tag.getBoolean("jump"));
+    public void readCustomDataFromNbt(NbtCompound nbt) {
+        super.readCustomDataFromNbt(nbt);
+        dataTracker.set(JUMP_KEY, nbt.getBoolean("jump"));
     }
 
     @Override
-    public void writeCustomDataToTag(CompoundTag tag) {
-        super.writeCustomDataToTag(tag);
-        tag.putBoolean("jump", dataTracker.get(JUMP_KEY));
+    public void writeCustomDataToNbt(NbtCompound nbt) {
+        super.writeCustomDataToNbt(nbt);
+        nbt.putBoolean("jump", dataTracker.get(JUMP_KEY));
     }
 
 }

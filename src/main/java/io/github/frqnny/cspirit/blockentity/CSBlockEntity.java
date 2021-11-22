@@ -1,20 +1,24 @@
 package io.github.frqnny.cspirit.blockentity;
 
 import io.github.frqnny.cspirit.blockentity.inventory.CSBlockInventory;
-import net.fabricmc.fabric.api.block.entity.BlockEntityClientSerializable;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.inventory.Inventories;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
+import net.minecraft.network.Packet;
+import net.minecraft.network.listener.ClientPlayPacketListener;
+import net.minecraft.network.packet.s2c.play.BlockEntityUpdateS2CPacket;
 import net.minecraft.util.collection.DefaultedList;
+import net.minecraft.util.math.BlockPos;
+import org.jetbrains.annotations.Nullable;
 
-public abstract class CSBlockEntity extends BlockEntity implements CSBlockInventory, BlockEntityClientSerializable {
+public abstract class CSBlockEntity extends BlockEntity implements CSBlockInventory {
     private final DefaultedList<ItemStack> items = DefaultedList.ofSize(getSizeInventory(), ItemStack.EMPTY);
 
-    public CSBlockEntity(BlockEntityType<?> type) {
-        super(type);
+    public CSBlockEntity(BlockEntityType<?> type, BlockPos pos, BlockState state) {
+        super(type, pos, state);
     }
 
     public abstract int getSizeInventory();
@@ -24,26 +28,21 @@ public abstract class CSBlockEntity extends BlockEntity implements CSBlockInvent
         return items;
     }
 
+
     @Override
-    public void fromTag(BlockState state, CompoundTag tag) {
-        super.fromTag(state, tag);
-        Inventories.fromTag(tag, items);
+    public void writeNbt(NbtCompound tag) {
+        super.writeNbt(tag);
+        Inventories.writeNbt(tag, items);
     }
 
     @Override
-    public CompoundTag toTag(CompoundTag tag) {
-        Inventories.toTag(tag, items);
-        return super.toTag(tag);
+    public void readNbt(NbtCompound tag) {
+        Inventories.readNbt(tag, items);
     }
 
+    @Nullable
     @Override
-    public void fromClientTag(CompoundTag tag) {
-        Inventories.fromTag(tag, items);
-    }
-
-    @Override
-    public CompoundTag toClientTag(CompoundTag tag) {
-        Inventories.toTag(tag, items);
-        return tag;
+    public Packet<ClientPlayPacketListener> toUpdatePacket() {
+        return BlockEntityUpdateS2CPacket.create(this, BlockEntity::createNbt);
     }
 }

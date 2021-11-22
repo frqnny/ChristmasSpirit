@@ -21,9 +21,7 @@ import net.fabricmc.fabric.api.client.rendereregistry.v1.EntityRendererRegistry;
 import net.fabricmc.fabric.api.client.screenhandler.v1.ScreenRegistry;
 import net.fabricmc.fabric.api.network.ClientSidePacketRegistry;
 import net.minecraft.client.MinecraftClient;
-import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.render.RenderLayer;
-import net.minecraft.client.world.ClientWorld;
 import net.minecraft.item.Item;
 import net.minecraft.text.LiteralText;
 import net.minecraft.text.TranslatableText;
@@ -104,7 +102,7 @@ public class ChristmasSpiritClient implements ClientModInitializer {
             int entityId = buf.readInt();
             UUID uuid = buf.readUuid();
             boolean isWhite = buf.readBoolean();
-            ChristmasTreeEntity tree = new ChristmasTreeEntity(MinecraftClient.getInstance().world, new Vec3d(x, y, z),0, isWhite );
+            ChristmasTreeEntity tree = new ChristmasTreeEntity(MinecraftClient.getInstance().world, new Vec3d(x, y, z), 0, isWhite);
             tree.updateTrackedPosition(new Vec3d(x, y, z));
             tree.setEntityId(entityId);
             tree.setUuid(uuid);

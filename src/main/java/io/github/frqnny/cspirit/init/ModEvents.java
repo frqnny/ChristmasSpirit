@@ -1,21 +1,15 @@
 package io.github.frqnny.cspirit.init;
 
-import io.github.frqnny.cspirit.ChristmasSpirit;
 import io.github.frqnny.cspirit.data.DailyPresentDataFile;
 import io.github.frqnny.cspirit.data.JackFrostData;
 import io.github.frqnny.cspirit.entity.JackFrostEntity;
 import io.github.frqnny.cspirit.util.ChatHelper;
-import io.github.frqnny.cspirit.util.IItemSpiritSupplier;
 import io.github.frqnny.cspirit.util.PresentHelper;
 import io.github.frqnny.cspirit.util.TimeHelper;
-import net.fabricmc.fabric.api.client.item.v1.ItemTooltipCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerEntityEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.text.LiteralText;
-import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Formatting;
 
 import java.util.Random;

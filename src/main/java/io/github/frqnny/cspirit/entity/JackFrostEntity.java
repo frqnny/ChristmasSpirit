@@ -8,7 +8,6 @@ import net.minecraft.block.BlockState;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.Durations;
 import net.minecraft.entity.ai.goal.*;
 import net.minecraft.entity.attribute.DefaultAttributeContainer;
 import net.minecraft.entity.attribute.EntityAttributes;
@@ -26,9 +25,10 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.TimeHelper;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Box;
-import net.minecraft.util.math.IntRange;
+import net.minecraft.util.math.intprovider.UniformIntProvider;
 import net.minecraft.world.World;
 import org.jetbrains.annotations.Nullable;
 
@@ -39,7 +39,7 @@ import java.util.UUID;
 
 public class JackFrostEntity extends PathAwareEntity implements Angerable {
 
-    private static final IntRange randomTime = Durations.betweenSeconds(20, 39);
+    private static final UniformIntProvider randomTime = TimeHelper.betweenSeconds(20, 39);
     private int attackTimer;
     private int angerTime;
     private UUID angerTarget;
@@ -70,7 +70,7 @@ public class JackFrostEntity extends PathAwareEntity implements Angerable {
         this.goalSelector.add(7, new LookAtEntityGoal(this, PlayerEntity.class, 6.0F));
         this.goalSelector.add(8, new LookAroundGoal(this));
         this.targetSelector.add(2, new RevengeGoal(this));
-        this.targetSelector.add(3, new FollowTargetGoal<>(this, PlayerEntity.class, 10, true, false, this::shouldAngerAt));
+        this.targetSelector.add(3, new ActiveTargetGoal<>(this, PlayerEntity.class, 10, true, false, this::shouldAngerAt));
         this.targetSelector.add(4, new UniversalAngerGoal<>(this, false));
     }
 
@@ -86,7 +86,7 @@ public class JackFrostEntity extends PathAwareEntity implements Angerable {
         }
 
         if (getY() > 300) {
-            remove();
+            remove(RemovalReason.DISCARDED);
         }
 
         if (this.attackTimer > 0) {
@@ -175,12 +175,12 @@ public class JackFrostEntity extends PathAwareEntity implements Angerable {
 
     @Override
     public void chooseRandomAngerTime() {
-        this.angerTime = randomTime.choose(this.random);
+        this.angerTime = randomTime.get(this.random);
     }
 
     @Override
     public boolean shouldAngerAt(LivingEntity entity) {
-        if (!EntityPredicates.EXCEPT_CREATIVE_SPECTATOR_OR_PEACEFUL.test(entity)) {
+        if (!EntityPredicates.EXCEPT_CREATIVE_OR_SPECTATOR.test(entity)) {
             return false;
         } else {
             return entity.getType() == EntityType.PLAYER && this.isUniversallyAngry(entity.world) || entity.getUuid().equals(this.angerTarget);
@@ -211,7 +211,7 @@ public class JackFrostEntity extends PathAwareEntity implements Angerable {
     }
 
     @Override
-    protected int getCurrentExperience(PlayerEntity player) {
+    protected int getXpToDrop(PlayerEntity player) {
         return 40;
     }
 

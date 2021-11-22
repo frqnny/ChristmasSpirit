@@ -1,11 +1,11 @@
 package io.github.frqnny.cspirit.effect;
 
 import net.minecraft.entity.effect.StatusEffect;
-import net.minecraft.entity.effect.StatusEffectType;
+import net.minecraft.entity.effect.StatusEffectCategory;
 
 public class NaughtyEffect extends StatusEffect {
     public NaughtyEffect() {
-        super(StatusEffectType.HARMFUL, 0);
+        super(StatusEffectCategory.HARMFUL, 0);
     }
 
 

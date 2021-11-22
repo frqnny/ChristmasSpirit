@@ -20,7 +20,7 @@ public class ModPackets {
     public static void init() {
         ServerPlayNetworking.registerGlobalReceiver(WRAP_PACKET_ID, (server, player, handler, buf, responseSender) -> {
             World world = handler.player.world;
-            PresentConstructor presentConstructor = PresentConstructor.fromNBT(buf.readCompoundTag());
+            PresentConstructor presentConstructor = PresentConstructor.fromNBT(buf.readNbt());
             BlockPos pos = buf.readBlockPos();
 
             server.execute(() -> {
@@ -39,8 +39,7 @@ public class ModPackets {
 
             server.execute(() -> {
 
-                if (player != null && player.getVehicle() instanceof ReindeerEntity) {
-                    ReindeerEntity reindeer = (ReindeerEntity) player.getVehicle();
+                if (player != null && player.getVehicle() instanceof ReindeerEntity reindeer) {
                     reindeer.getDataTracker().set(ReindeerEntity.JUMP_KEY, buf.readBoolean());
                 }
             });

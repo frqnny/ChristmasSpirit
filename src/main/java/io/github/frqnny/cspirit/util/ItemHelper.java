@@ -3,7 +3,7 @@ package io.github.frqnny.cspirit.util;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.world.World;
 
 public class ItemHelper {
@@ -22,12 +22,12 @@ public class ItemHelper {
         spawnStack(world, entity.getX(), entity.getY(), entity.getZ(), stack);
     }
 
-    public static CompoundTag getNBT(ItemStack is) {
+    public static NbtCompound getNBT(ItemStack is) {
 
-        if (is.getTag() == null) {
-            is.setTag(new CompoundTag());
+        if (is.getNbt() == null) {
+            is.setNbt(new NbtCompound());
         }
 
-        return is.getTag();
+        return is.getNbt();
     }
 }
