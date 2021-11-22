@@ -1,4 +1,5 @@
-# Fabric Example Mod
+# Christmas Spirit: Rewoven
+A port of the Christmas Spirit mod for 1.16 forge
 
 ## Setup
 
