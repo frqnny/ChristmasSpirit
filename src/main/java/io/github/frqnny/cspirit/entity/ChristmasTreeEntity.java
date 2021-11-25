@@ -272,14 +272,6 @@ public class ChristmasTreeEntity extends Entity {
         return true;
     }
 
-    //TODO
-    /*
-    protected boolean canClimb() {
-        return false;
-    }
-
-     */
-
     @Override
     public float getTargetingMargin() {
         return 0.0F;

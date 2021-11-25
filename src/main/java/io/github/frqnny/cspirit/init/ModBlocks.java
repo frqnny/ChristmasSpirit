@@ -114,11 +114,7 @@ public class ModBlocks {
         COOKIE_TRAY_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ChristmasSpirit.id("cookie_tray"), FabricBlockEntityTypeBuilder.create(CookieTrayBlockEntity::new, COOKIE_TRAY).build(null));
         UNWRAPPED_PRESENT_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ChristmasSpirit.id("present_unwrapped"), FabricBlockEntityTypeBuilder.create(UnwrappedPresentBlockEntity::new, PRESENT_UNWRAPPED).build(null));
 
-        //TODO needs thinking through
-        WRAPPED_PRESENT_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ChristmasSpirit.id("present_wrapped_red"), FabricBlockEntityTypeBuilder.create(WrappedPresentBlockEntity::new, PRESENT_WRAPPED_RED).build(null));
-        WRAPPED_PRESENT_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ChristmasSpirit.id("present_wrapped_green"), FabricBlockEntityTypeBuilder.create(WrappedPresentBlockEntity::new, PRESENT_WRAPPED_GREEN).build(null));
-        WRAPPED_PRESENT_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ChristmasSpirit.id("present_wrapped_blue"), FabricBlockEntityTypeBuilder.create(WrappedPresentBlockEntity::new, PRESENT_WRAPPED_BLUE).build(null));
-
+        WRAPPED_PRESENT_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ChristmasSpirit.id("present_wrapped_red"), FabricBlockEntityTypeBuilder.create(WrappedPresentBlockEntity::new, PRESENT_WRAPPED_RED, PRESENT_WRAPPED_BLUE, PRESENT_WRAPPED_GREEN, PRESENT_WRAPPED_PINK, PRESENT_WRAPPED_ORANGE).build(null));
 
     }
 }

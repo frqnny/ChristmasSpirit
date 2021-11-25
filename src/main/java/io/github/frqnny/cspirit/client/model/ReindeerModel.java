@@ -3,7 +3,6 @@ package io.github.frqnny.cspirit.client.model;
 
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.model.*;
-import net.minecraft.client.render.entity.model.AnimalModel;
 import net.minecraft.client.render.entity.model.HorseEntityModel;
 import net.minecraft.entity.passive.HorseBaseEntity;
 import net.minecraft.util.math.MathHelper;
@@ -100,7 +99,7 @@ public class ReindeerModel<T extends HorseBaseEntity> extends HorseEntityModel<T
 
         int var11;
         ModelPart modelPart;
-        for(var11 = 0; var11 < var10; ++var11) {
+        for (var11 = 0; var11 < var10; ++var11) {
             modelPart = var9[var11];
             modelPart.visible = bl;
         }
@@ -108,7 +107,7 @@ public class ReindeerModel<T extends HorseBaseEntity> extends HorseEntityModel<T
         var9 = this.straps;
         var10 = var9.length;
 
-        for(var11 = 0; var11 < var10; ++var11) {
+        for (var11 = 0; var11 < var10; ++var11) {
             modelPart = var9[var11];
             modelPart.visible = bl2 && bl;
         }
@@ -148,7 +147,7 @@ public class ReindeerModel<T extends HorseBaseEntity> extends HorseEntityModel<T
         float p = 1.0F - o;
         float q = horseBaseEntity.getEatingAnimationProgress(h);
         boolean bl = horseBaseEntity.tailWagTicks != 0;
-        float r = (float)horseBaseEntity.age + h;
+        float r = (float) horseBaseEntity.age + h;
         this.head.pivotY = 4.0F;
         this.head.pivotZ = -12.0F;
         this.body.pitch = 0.0F;

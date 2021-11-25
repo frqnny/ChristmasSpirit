@@ -37,12 +37,12 @@ public class ModPackets {
         });
 
         ServerPlayNetworking.registerGlobalReceiver(REINDEER_JUMP_PACKET, (server, player, handler, buf, responseSender) -> {
-                boolean jump = buf.readBoolean();
-                server.execute(() -> {
-                    if (player != null && player.getVehicle() instanceof ReindeerEntity reindeer) {
-                        reindeer.getDataTracker().set(ReindeerEntity.JUMP_KEY, jump);
-                    }
-                });
+            boolean jump = buf.readBoolean();
+            server.execute(() -> {
+                if (player != null && player.getVehicle() instanceof ReindeerEntity reindeer) {
+                    reindeer.getDataTracker().set(ReindeerEntity.JUMP_KEY, jump);
+                }
+            });
         });
     }
 }

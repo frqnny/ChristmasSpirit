@@ -8,8 +8,6 @@ import io.github.frqnny.cspirit.client.render.feature.ReindeerMarkingsFeatureRen
 import io.github.frqnny.cspirit.entity.ReindeerEntity;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.HorseBaseEntityRenderer;
-import net.minecraft.client.render.entity.model.EntityModelLayers;
-import net.minecraft.client.render.entity.model.HorseEntityModel;
 import net.minecraft.util.Identifier;
 
 public class ReindeerEntityRenderer extends HorseBaseEntityRenderer<ReindeerEntity, ReindeerModel<ReindeerEntity>> {
