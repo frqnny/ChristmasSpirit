@@ -22,9 +22,7 @@ public class CandyCaneCannonItem extends Item {
 
     @Override
     public void inventoryTick(ItemStack stack, World world, Entity entity, int slot, boolean selected) {
-        if (entity instanceof PlayerEntity) {
-
-            PlayerEntity player = (PlayerEntity) entity;
+        if (entity instanceof PlayerEntity player) {
 
             if (getMaxUseTime(stack) - player.getItemUseTimeLeft() == MAX_CHARGE_TIME) {
                 player.playSound(SoundEvents.UI_BUTTON_CLICK, 1, 1);
@@ -70,9 +68,7 @@ public class CandyCaneCannonItem extends Item {
 
     @Override
     public void onStoppedUsing(ItemStack stack, World world, LivingEntity user, int remainingUseTicks) {
-        if (user instanceof PlayerEntity) {
-
-            PlayerEntity player = (PlayerEntity) user;
+        if (user instanceof PlayerEntity player) {
 
             if (getMaxUseTime(stack) - remainingUseTicks >= MAX_CHARGE_TIME) {
 
@@ -102,8 +98,7 @@ public class CandyCaneCannonItem extends Item {
                     CandyCaneProjectileEntity entity = new CandyCaneProjectileEntity(world, player, candyType);
                     entity.setCritical(true);
                     entity.setVelocity(player, player.getPitch(), player.getYaw(), 0.0F, 3, 1.0F);
-                    entity.
-                            world.spawnEntity(entity);
+                    entity.world.spawnEntity(entity);
                     candyCaneStack.decrement(1);
 
                     player.playSound(SoundEvents.ITEM_TRIDENT_THROW, 1, 1);

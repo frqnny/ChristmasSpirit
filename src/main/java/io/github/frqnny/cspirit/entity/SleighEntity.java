@@ -77,7 +77,7 @@ public class SleighEntity extends BoatEntity {
 
             double passengerOffsetX = 0.0F;
             double passengerOffsetZ = 0.0F;
-            float f1 = (float) ((this.removed ? (double) 0.01F : this.getMountedHeightOffset()) + passenger.getHeightOffset());
+            float f1 = (float) ((this.isRemoved() ? (double) 0.01F : this.getMountedHeightOffset()) + passenger.getHeightOffset());
 
             if (getPassengerList().indexOf(passenger) == 0) passengerOffsetX = -0.39D;
             if (getPassengerList().size() > 1 && getPassengerList().indexOf(passenger) == 1) passengerOffsetX = 0.39D;
@@ -93,11 +93,11 @@ public class SleighEntity extends BoatEntity {
                 passengerOffsetZ = -1.0D;
             }
 
-            Vec3d vector3d = (new Vec3d(-0.5D + passengerOffsetZ, 0D, passengerOffsetX)).rotateY(-this.yaw * ((float) Math.PI / 180F) - ((float) Math.PI / 2F));
+            Vec3d vector3d = (new Vec3d(-0.5D + passengerOffsetZ, 0D, passengerOffsetX)).rotateY(-this.getYaw() * ((float) Math.PI / 180F) - ((float) Math.PI / 2F));
             passenger.setPos(this.getX() + vector3d.x, this.getY() + (double) f1, this.getZ() + vector3d.z);
 
-            passenger.yaw += (yaw - prevYaw);
-            passenger.setHeadYaw(passenger.getHeadYaw() + (yaw - prevYaw));
+            passenger.setYaw(passenger.getYaw() + (this.getYaw() - prevYaw));
+            passenger.setHeadYaw(passenger.getHeadYaw() + (this.getYaw() - prevYaw));
 
             this.copyEntityData(passenger);
         }
@@ -145,14 +145,14 @@ public class SleighEntity extends BoatEntity {
     public Packet<?> createSpawnPacket() {
         final PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
 
-        buf.writeVarInt(this.getEntityId());
+        buf.writeVarInt(this.getId());
         buf.writeUuid(this.uuid);
         buf.writeVarInt(Registry.ENTITY_TYPE.getRawId(this.getType()));
         buf.writeDouble(this.getX());
         buf.writeDouble(this.getY());
         buf.writeDouble(this.getZ());
-        buf.writeByte(MathHelper.floor(this.pitch * 256.0F / 360.0F));
-        buf.writeByte(MathHelper.floor(this.yaw * 256.0F / 360.0F));
+        buf.writeByte(MathHelper.floor(this.getPitch() * 256.0F / 360.0F));
+        buf.writeByte(MathHelper.floor(this.getYaw() * 256.0F / 360.0F));
 
         return ServerPlayNetworking.createS2CPacket(ChristmasSpirit.id("spawn_boat"), buf);
     }

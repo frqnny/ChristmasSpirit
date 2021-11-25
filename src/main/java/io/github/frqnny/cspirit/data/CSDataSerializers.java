@@ -7,7 +7,7 @@ import net.minecraft.util.collection.DefaultedList;
 
 public class CSDataSerializers {
 
-    public static final TrackedDataHandler<DefaultedList<ItemStack>> ITEMSTACK_ARRAY_4 = new TrackedDataHandler<DefaultedList<ItemStack>>() {
+    public static final TrackedDataHandler<DefaultedList<ItemStack>> ITEMSTACK_ARRAY_4 = new TrackedDataHandler<>() {
 
         @Override
         public void write(PacketByteBuf buf, DefaultedList<ItemStack> value) {

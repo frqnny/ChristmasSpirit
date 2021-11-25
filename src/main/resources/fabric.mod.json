@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "cspirit",
-  "version": "1.0.0+mc.1.16.4",
+  "version": "1.1.0-1.18",
   "name": "Christmas Spirit",
   "description": "♫ Deck the mines with boughs of holly! ♫",
   "authors": [
@@ -31,8 +31,6 @@
     "stopmodreposts:showButton": false
   },
   "depends": {
-    "fabricloader": ">=0.7.4",
-    "fabric": "*",
-    "minecraft": "1.16.x"
+    "minecraft": "1.18.x"
   }
 }

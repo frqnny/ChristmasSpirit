@@ -55,11 +55,11 @@ public class PresentHelper {
                 naughtyEffectStack = naughtyEffect.getAmplifier() + 1;
             }
 
-            return new ItemStack(ModItems.LUMP_OF_COAL, random.nextInt(naughtyEffectStack * 2 + 1) + 1);
+            return new ItemStack(ModItems.LUMP_OF_COAL, random.nextInt((naughtyEffectStack << 1) + 1) + 1);
         }
 
         List<SantaGiftListFile.GiftEntry> allGiftEntries = new ArrayList<>(SantaGiftListFile.santaGiftList.values());
-        List<SantaGiftListFile.GiftEntry> availableGifts = new ArrayList<>();
+        List<SantaGiftListFile.GiftEntry> availableGifts = new ArrayList<>(15);
 
         int spiritEffectStack = 0;
 

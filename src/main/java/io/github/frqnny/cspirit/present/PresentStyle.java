@@ -7,7 +7,9 @@ public enum PresentStyle {
 
     RED(0, "Red", ModBlocks.PRESENT_WRAPPED_RED),
     GREEN(1, "Green", ModBlocks.PRESENT_WRAPPED_GREEN),
-    BLUE(2, "Blue", ModBlocks.PRESENT_WRAPPED_BLUE);
+    BLUE(2, "Blue", ModBlocks.PRESENT_WRAPPED_BLUE),
+    ORANGE(3, "Orange", ModBlocks.PRESENT_WRAPPED_ORANGE),
+    PINK(4, "Pink", ModBlocks.PRESENT_WRAPPED_PINK);
 
     private final int index;
     private final String name;
@@ -32,10 +34,6 @@ public enum PresentStyle {
         }
 
         return foundColor;
-    }
-
-    public int getIndex() {
-        return this.index;
     }
 
     public String getName() {

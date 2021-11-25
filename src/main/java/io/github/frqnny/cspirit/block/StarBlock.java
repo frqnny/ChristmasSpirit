@@ -22,13 +22,10 @@ public class StarBlock extends CSBlock {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        switch (state.get(FACING)) {
-            case EAST:
-            case WEST:
-                return SHAPE_EW;
-            default:
-                return SHAPE_NS;
-        }
+        return switch (state.get(FACING)) {
+            case EAST, WEST -> SHAPE_EW;
+            default -> SHAPE_NS;
+        };
     }
 
     @Nullable

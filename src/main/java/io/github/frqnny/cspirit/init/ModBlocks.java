@@ -7,7 +7,6 @@ import io.github.frqnny.cspirit.blockentity.UnwrappedPresentBlockEntity;
 import io.github.frqnny.cspirit.blockentity.WrappedPresentBlockEntity;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.object.builder.v1.block.entity.FabricBlockEntityTypeBuilder;
-import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
@@ -23,6 +22,8 @@ public class ModBlocks {
     public static final Block PRESENT_WRAPPED_RED = new WrappedPresentBlock(FabricBlockSettings.of(Material.WOOL, DyeColor.RED).strength(0.8F).sounds(BlockSoundGroup.WOOL));
     public static final Block PRESENT_WRAPPED_GREEN = new WrappedPresentBlock(FabricBlockSettings.of(Material.WOOL, DyeColor.GREEN).strength(0.8F).sounds(BlockSoundGroup.WOOL));
     public static final Block PRESENT_WRAPPED_BLUE = new WrappedPresentBlock(FabricBlockSettings.of(Material.WOOL, DyeColor.BLUE).strength(0.8F).sounds(BlockSoundGroup.WOOL));
+    public static final Block PRESENT_WRAPPED_ORANGE = new WrappedPresentBlock(FabricBlockSettings.of(Material.WOOL, DyeColor.ORANGE).strength(0.8F).sounds(BlockSoundGroup.WOOL));
+    public static final Block PRESENT_WRAPPED_PINK = new WrappedPresentBlock(FabricBlockSettings.of(Material.WOOL, DyeColor.PINK).strength(0.8F).sounds(BlockSoundGroup.WOOL));
     public static final Block CANDY_CANE_POST_RED = new CandyCanePostBlock(FabricBlockSettings.of(Material.STONE, DyeColor.RED).hardness(0.5F).nonOpaque().sounds(BlockSoundGroup.LANTERN));
     public static final Block CANDY_CANE_POST_GREEN = new CandyCanePostBlock(FabricBlockSettings.of(Material.STONE, DyeColor.GREEN).hardness(0.5F).nonOpaque().sounds(BlockSoundGroup.LANTERN));
     public static final Block CANDY_CANE_POST_BLUE = new CandyCanePostBlock(FabricBlockSettings.of(Material.STONE, DyeColor.BLUE).hardness(0.5F).nonOpaque().sounds(BlockSoundGroup.LANTERN));
@@ -51,9 +52,9 @@ public class ModBlocks {
     public static final Block STOCKING_RED = new StockingBlock(FabricBlockSettings.of(Material.WOOL, DyeColor.RED).sounds(BlockSoundGroup.WOOL).strength(0).sounds(BlockSoundGroup.WOOL).nonOpaque().dynamicBounds().noCollision());
     public static final Block STOCKING_GREEN = new StockingBlock(FabricBlockSettings.of(Material.WOOL, DyeColor.GREEN).sounds(BlockSoundGroup.WOOL).strength(0).sounds(BlockSoundGroup.WOOL).nonOpaque().dynamicBounds().noCollision());
     public static final Block STOCKING_BLUE = new StockingBlock(FabricBlockSettings.of(Material.WOOL, DyeColor.BLUE).sounds(BlockSoundGroup.WOOL).strength(0).sounds(BlockSoundGroup.WOOL).nonOpaque().dynamicBounds().noCollision());
-    public static final Block CHIMNEY = new ChimneyBlock(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(1).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1).sounds(BlockSoundGroup.STONE).nonOpaque().dynamicBounds());
+    public static final Block CHIMNEY = new ChimneyBlock(FabricBlockSettings.of(Material.WOOD).sounds(BlockSoundGroup.WOOD).strength(1).requiresTool().sounds(BlockSoundGroup.STONE).nonOpaque().dynamicBounds());
     public static final Block ICICLES = new IciclesBlock(FabricBlockSettings.of(Material.ICE).strength(0.5F).sounds(BlockSoundGroup.GLASS).nonOpaque().dynamicBounds());
-    public static final Block SNOW_GLOBE = new SnowGlobeBlock(FabricBlockSettings.of(Material.STONE).strength(1).requiresTool().breakByTool(FabricToolTags.PICKAXES, 1).sounds(BlockSoundGroup.STONE).nonOpaque().dynamicBounds());
+    public static final Block SNOW_GLOBE = new SnowGlobeBlock(FabricBlockSettings.of(Material.STONE).strength(1).requiresTool().sounds(BlockSoundGroup.STONE).nonOpaque().dynamicBounds());
     public static final Block GINGERBREAD_HOUSE = new GingerbreadHouseBlock(FabricBlockSettings.of(Material.STONE).strength(0.5F).sounds(BlockSoundGroup.STONE).nonOpaque().luminance(1));
     public static final Block COOKIE_TRAY = new CookieTrayBlock(FabricBlockSettings.of(Material.METAL).strength(0.5F).sounds(BlockSoundGroup.METAL).nonOpaque());
     public static final Block REEF = new ReefBlock(FabricBlockSettings.of(Material.PLANT).strength(0).sounds(BlockSoundGroup.GRASS).nonOpaque().dynamicBounds().noCollision());
@@ -71,6 +72,8 @@ public class ModBlocks {
         Registry.register(Registry.BLOCK, ChristmasSpirit.id("present_wrapped_red"), PRESENT_WRAPPED_RED);
         Registry.register(Registry.BLOCK, ChristmasSpirit.id("present_wrapped_green"), PRESENT_WRAPPED_GREEN);
         Registry.register(Registry.BLOCK, ChristmasSpirit.id("present_wrapped_blue"), PRESENT_WRAPPED_BLUE);
+        Registry.register(Registry.BLOCK, ChristmasSpirit.id("present_wrapped_orange"), PRESENT_WRAPPED_ORANGE);
+        Registry.register(Registry.BLOCK, ChristmasSpirit.id("present_wrapped_pink"), PRESENT_WRAPPED_PINK);
         Registry.register(Registry.BLOCK, ChristmasSpirit.id("candy_cane_red"), CANDY_CANE_POST_RED);
         Registry.register(Registry.BLOCK, ChristmasSpirit.id("candy_cane_green"), CANDY_CANE_POST_GREEN);
         Registry.register(Registry.BLOCK, ChristmasSpirit.id("candy_cane_blue"), CANDY_CANE_POST_BLUE);
@@ -110,9 +113,12 @@ public class ModBlocks {
 
         COOKIE_TRAY_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ChristmasSpirit.id("cookie_tray"), FabricBlockEntityTypeBuilder.create(CookieTrayBlockEntity::new, COOKIE_TRAY).build(null));
         UNWRAPPED_PRESENT_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ChristmasSpirit.id("present_unwrapped"), FabricBlockEntityTypeBuilder.create(UnwrappedPresentBlockEntity::new, PRESENT_UNWRAPPED).build(null));
+
+        //TODO needs thinking through
         WRAPPED_PRESENT_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ChristmasSpirit.id("present_wrapped_red"), FabricBlockEntityTypeBuilder.create(WrappedPresentBlockEntity::new, PRESENT_WRAPPED_RED).build(null));
         WRAPPED_PRESENT_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ChristmasSpirit.id("present_wrapped_green"), FabricBlockEntityTypeBuilder.create(WrappedPresentBlockEntity::new, PRESENT_WRAPPED_GREEN).build(null));
         WRAPPED_PRESENT_BLOCK_ENTITY = Registry.register(Registry.BLOCK_ENTITY_TYPE, ChristmasSpirit.id("present_wrapped_blue"), FabricBlockEntityTypeBuilder.create(WrappedPresentBlockEntity::new, PRESENT_WRAPPED_BLUE).build(null));
+
 
     }
 }

@@ -4,17 +4,16 @@ import io.github.frqnny.cspirit.blockentity.CookieTrayBlockEntity;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.VertexConsumerProvider;
-import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
+import net.minecraft.client.render.block.entity.BlockEntityRendererFactory;
 import net.minecraft.client.render.model.json.ModelTransformation;
 import net.minecraft.client.util.math.MatrixStack;
-import net.minecraft.client.util.math.Vector3f;
 import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.Vec3f;
 
-public class CookieTrayBlockEntityRenderer extends BlockEntityRenderer<CookieTrayBlockEntity> {
-    public CookieTrayBlockEntityRenderer(BlockEntityRenderDispatcher dispatcher) {
-        super(dispatcher);
+public class CookieTrayBlockEntityRenderer implements BlockEntityRenderer<CookieTrayBlockEntity> {
+    public CookieTrayBlockEntityRenderer(BlockEntityRendererFactory.Context ctx) {
     }
 
     @Override
@@ -38,8 +37,8 @@ public class CookieTrayBlockEntityRenderer extends BlockEntityRenderer<CookieTra
         matrixStack.push();
         matrixStack.scale(0.7F, 0.7F, 0.7F);
         matrixStack.translate(x, y, z);
-        matrixStack.multiply(Vector3f.POSITIVE_X.getDegreesQuaternion(90));
-        MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.GROUND, combinedLight, OverlayTexture.DEFAULT_UV, matrixStack, buffer);
+        matrixStack.multiply(Vec3f.POSITIVE_X.getDegreesQuaternion(90));
+        MinecraftClient.getInstance().getItemRenderer().renderItem(stack, ModelTransformation.Mode.GROUND, combinedLight, OverlayTexture.DEFAULT_UV, matrixStack, buffer, 0);
         matrixStack.pop();
     }
 }

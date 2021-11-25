@@ -1,7 +1,5 @@
 package io.github.frqnny.cspirit.block;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.util.math.BlockPos;
@@ -15,13 +13,16 @@ public class FrostedGlassBlock extends CSBlock {
         super(settings);
     }
 
-    @Environment(EnvType.CLIENT)
+    @Override
     public boolean isSideInvisible(BlockState state, BlockState stateFrom, Direction direction) {
-        return stateFrom.isOf(this) || super.isSideInvisible(state, stateFrom, direction);
+        if (stateFrom.isOf(this)) {
+            return true;
+        }
+        return super.isSideInvisible(state, stateFrom, direction);
     }
 
     @Override
-    public VoxelShape getVisualShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
+    public VoxelShape getCameraCollisionShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
         return VoxelShapes.empty();
     }
 

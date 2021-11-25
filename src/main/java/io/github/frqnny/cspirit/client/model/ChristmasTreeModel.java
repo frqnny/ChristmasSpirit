@@ -15,7 +15,7 @@ public class ChristmasTreeModel extends EntityModel<ChristmasTreeEntity> {
 
     }
 
-    public static ModelData getModelData(Dilation dilation, float pivotOffsetY) {
+    public static TexturedModelData getModelData() {
         ModelData modelData = new ModelData();
         ModelPartData root = modelData.getRoot();
         root.addChild("bb_main",
@@ -31,7 +31,7 @@ public class ChristmasTreeModel extends EntityModel<ChristmasTreeEntity> {
                         .cuboid(-2.0F, -50.1F, -2.0F, 4.0F, 14.0F, 4.0F),
                 ModelTransform.of(0.0F, 24.0F, 0.0F, 0.0F, 0.0F, 0.0F));
 
-        return modelData;
+        return TexturedModelData.of(modelData, 128, 128);
     }
 
     @Override

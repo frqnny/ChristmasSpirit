@@ -64,7 +64,6 @@ public class ReindeerEntity extends HorseEntity implements Flutterer {
             this.addStatusEffect(new StatusEffectInstance(StatusEffects.SLOW_FALLING, 20, 0, true, false));
 
             if (world.isClient) {
-
                 if (getPrimaryPassenger() != null) {
 
                     if (getPrimaryPassenger() instanceof ClientPlayerEntity player) {

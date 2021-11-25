@@ -1,6 +1,7 @@
 package io.github.frqnny.cspirit.client.render;
 
 import io.github.frqnny.cspirit.ChristmasSpirit;
+import io.github.frqnny.cspirit.ChristmasSpiritClient;
 import io.github.frqnny.cspirit.client.model.ChristmasTreeModel;
 import io.github.frqnny.cspirit.entity.ChristmasTreeEntity;
 import io.github.frqnny.cspirit.init.ModBlocks;
@@ -25,10 +26,11 @@ public class ChristmasTreeEntityRenderer extends EntityRenderer<ChristmasTreeEnt
 
     private static final Identifier TEXTURE = ChristmasSpirit.id("textures/entity/christmas_tree.png");
     private static final Identifier TEXTURE_WHITE = ChristmasSpirit.id("textures/entity/christmas_tree_white.png");
-    private final ChristmasTreeModel christmasTree = new ChristmasTreeModel();
+    private final ChristmasTreeModel christmasTree;
 
     public ChristmasTreeEntityRenderer(EntityRendererFactory.Context renderManager) {
         super(renderManager);
+        christmasTree = new ChristmasTreeModel(renderManager.getPart(ChristmasSpiritClient.CHRISTMAS_TREE));
     }
 
     private static void renderDecoration(ItemStack stack, float yRot, float x, float y, float z, float partialTicks, MatrixStack matrixStack, VertexConsumerProvider buffer, int combinedLight) {

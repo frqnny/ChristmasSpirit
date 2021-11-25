@@ -27,7 +27,7 @@ public class BoatSpawnNetworkHandler {
 
         int id = buffer.readVarInt();
         UUID uuid = buffer.readUuid();
-        EntityType type = Registry.ENTITY_TYPE.get(buffer.readVarInt());
+        EntityType<?> type = Registry.ENTITY_TYPE.get(buffer.readVarInt());
         double x = buffer.readDouble();
         double y = buffer.readDouble();
         double z = buffer.readDouble();
@@ -41,7 +41,7 @@ public class BoatSpawnNetworkHandler {
         }
     }
 
-    private static void spawn(MinecraftClient client, int id, UUID uuid, EntityType type, double x, double y, double z, byte pitch, byte yaw) {
+    private static void spawn(MinecraftClient client, int id, UUID uuid, EntityType<?> type, double x, double y, double z, byte pitch, byte yaw) {
         ClientWorld world = client.world;
 
         if (world == null) {
@@ -54,13 +54,13 @@ public class BoatSpawnNetworkHandler {
             return;
         }
 
-        entity.setEntityId(id);
+        entity.setId(id);
         entity.setUuid(uuid);
         entity.updatePosition(x, y, z);
         entity.updateTrackedPosition(x, y, z);
-        entity.pitch = pitch * 360 / 256F;
-        entity.yaw = yaw * 360 / 256F;
+        entity.setPitch(pitch * 360 / 256F);
+        entity.setYaw(yaw * 360 / 256F);
 
-        world.addEntity(entity.getEntityId(), entity);
+        world.addEntity(entity.getId(), entity);
     }
 }

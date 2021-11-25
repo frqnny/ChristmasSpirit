@@ -12,25 +12,21 @@ import org.jetbrains.annotations.Nullable;
 public class ChristmasLightsBlock extends CSBlock {
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
     public static final VoxelShape SHAPE_N = Block.createCuboidShape(0, 4, 0, 16, 12, 2);
-    public static final VoxelShape SHAPE_E = Block.createCuboidShape(16, 4, 0, 14, 12, 16);
-    public static final VoxelShape SHAPE_S = Block.createCuboidShape(16, 4, 16, 0, 12, 14);
-    public static final VoxelShape SHAPE_W = Block.createCuboidShape(0, 4, 16, 2, 12, 0);
+    public static final VoxelShape SHAPE_E = Block.createCuboidShape(14, 4, 0, 16, 12, 16);
+    public static final VoxelShape SHAPE_S = Block.createCuboidShape(0, 4, 14, 16, 12, 16);
+    public static final VoxelShape SHAPE_W = Block.createCuboidShape(0, 4, 0, 2, 12, 16);
 
     public ChristmasLightsBlock(Settings settings) {
         super(settings);
     }
 
     public VoxelShape getChristmasLights(BlockState state) {
-        switch (state.get(FACING)) {
-            case EAST:
-                return SHAPE_E;
-            case SOUTH:
-                return SHAPE_S;
-            case WEST:
-                return SHAPE_W;
-            default:
-                return SHAPE_N;
-        }
+        return switch (state.get(FACING)) {
+            case EAST -> SHAPE_E;
+            case SOUTH -> SHAPE_S;
+            case WEST -> SHAPE_W;
+            default -> SHAPE_N;
+        };
     }
 
     @Override

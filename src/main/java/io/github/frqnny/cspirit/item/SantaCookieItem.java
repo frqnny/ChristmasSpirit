@@ -18,9 +18,7 @@ public class SantaCookieItem extends CSFoodItem {
 
     @Override
     public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
-        if (user instanceof PlayerEntity) {
-
-            PlayerEntity player = (PlayerEntity) user;
+        if (user instanceof PlayerEntity player) {
 
             player.removeStatusEffect(ModEffects.NAUGHTY_EFFECT);
 

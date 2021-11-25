@@ -35,7 +35,7 @@ import java.util.List;
 public class ChristmasTreeEntity extends Entity {
     private static final TrackedData<DefaultedList<ItemStack>> INVENTORY = DataTracker.registerData(ChristmasTreeEntity.class, CSDataSerializers.ITEMSTACK_ARRAY_4);
     private static final TrackedData<Boolean> WHITE = DataTracker.registerData(ChristmasTreeEntity.class, TrackedDataHandlerRegistry.BOOLEAN);
-    private boolean white_what;
+    private boolean white;
 
     public ChristmasTreeEntity(EntityType<?> type, World world) {
         super(type, world);
@@ -44,7 +44,7 @@ public class ChristmasTreeEntity extends Entity {
     public ChristmasTreeEntity(World world, Vec3d position, float yaw, boolean isWhite) {
         this(ModEntityTypes.CHRISTMAS_TREE, world);
         refreshPositionAndAngles(position.x, position.y, position.z, yaw, 0);
-        this.white_what = isWhite;
+        this.white = isWhite;
     }
 
     public static EquipmentSlot getSlotTypeFromID(int id) {
@@ -180,8 +180,7 @@ public class ChristmasTreeEntity extends Entity {
     @Override
     public boolean damage(DamageSource source, float amount) {
 
-        if (source.getAttacker() instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity) source.getAttacker();
+        if (source.getAttacker() instanceof PlayerEntity player) {
             if (player.getMainHandStack().getItem() instanceof AxeItem || player.isCreative()) {
 
                 Item item = ModItems.CHRISTMAS_TREE;
@@ -215,7 +214,7 @@ public class ChristmasTreeEntity extends Entity {
     protected void initDataTracker() {
         dataTracker.startTracking(INVENTORY, DefaultedList.ofSize(4, ItemStack.EMPTY));
 
-        dataTracker.startTracking(WHITE, white_what);
+        dataTracker.startTracking(WHITE, white);
     }
 
     @Override
@@ -258,8 +257,9 @@ public class ChristmasTreeEntity extends Entity {
         buf.writeDouble(getZ());
         buf.writeInt(this.getId());
         buf.writeUuid(getUuid());
+        this.dataTracker.set(WHITE, white);
         buf.writeBoolean(this.dataTracker.get(WHITE));
-        return ServerPlayNetworking.createS2CPacket(ModPackets.SPAWN_PACKET_TREE, buf);
+        return ServerPlayNetworking.createS2CPacket(ModPackets.TREE_SPAWN_PACKET, buf);
     }
 
     @Override

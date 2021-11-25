@@ -59,9 +59,8 @@ public class WrappedPresentBlock extends UnwrappedPresentBlock implements BlockE
 
         if (!world.isClient) {
 
-            if (be instanceof WrappedPresentBlockEntity) {
+            if (be instanceof WrappedPresentBlockEntity present) {
 
-                WrappedPresentBlockEntity present = (WrappedPresentBlockEntity) be;
                 boolean isAnybody = present.getPresentConstructor().toPlayerName.equalsIgnoreCase("anybody");
                 boolean isToPlayer = player.getDisplayName().getString().equalsIgnoreCase(present.getPresentConstructor().toPlayerName);
                 boolean isFromPlayer = player.getDisplayName().getString().equalsIgnoreCase(present.getPresentConstructor().toPlayerName);
@@ -83,9 +82,7 @@ public class WrappedPresentBlock extends UnwrappedPresentBlock implements BlockE
         if (!world.isClient) {
 
             BlockEntity be = world.getBlockEntity(pos);
-            if (be instanceof WrappedPresentBlockEntity) {
-
-                WrappedPresentBlockEntity present = (WrappedPresentBlockEntity) be;
+            if (be instanceof WrappedPresentBlockEntity present) {
 
                 if (player.isSneaking()) {
                     WrappedPresentBlockEntity.getUnitName(player).printMessage(Formatting.WHITE, "From: " + present.getPresentConstructor().fromPlayerName);

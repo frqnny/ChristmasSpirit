@@ -8,27 +8,30 @@ import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.FeatureRenderer;
 import net.minecraft.client.render.entity.feature.FeatureRendererContext;
+import net.minecraft.client.render.entity.model.EntityModelLayers;
+import net.minecraft.client.render.entity.model.EntityModelLoader;
+import net.minecraft.client.render.entity.model.HorseEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.item.DyeableHorseArmorItem;
 import net.minecraft.item.HorseArmorItem;
 import net.minecraft.item.ItemStack;
 
 public class ReindeerLeatherArmorFeatureRenderer extends FeatureRenderer<ReindeerEntity, ReindeerModel<ReindeerEntity>> {
-    private final ReindeerModel<ReindeerEntity> field_215341_a = new ReindeerModel<>(0.1F);
+    private final ReindeerModel<ReindeerEntity> model;
 
 
-    public ReindeerLeatherArmorFeatureRenderer(FeatureRendererContext<ReindeerEntity, ReindeerModel<ReindeerEntity>> context) {
+    public ReindeerLeatherArmorFeatureRenderer(FeatureRendererContext<ReindeerEntity, ReindeerModel<ReindeerEntity>> context, EntityModelLoader loader) {
         super(context);
+        this.model = new ReindeerModel<>(loader.getModelPart(EntityModelLayers.HORSE_ARMOR));
     }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumerProvider vertexConsumers, int light, ReindeerEntity entity, float limbAngle, float limbDistance, float tickDelta, float animationProgress, float headYaw, float headPitch) {
         ItemStack itemstack = entity.getArmorType();
-        if (itemstack.getItem() instanceof HorseArmorItem) {
-            HorseArmorItem horsearmoritem = (HorseArmorItem) itemstack.getItem();
-            this.getContextModel().copyStateTo(this.field_215341_a);
-            this.field_215341_a.animateModel(entity, limbAngle, limbAngle, tickDelta);
-            this.field_215341_a.setAngles(entity, limbAngle, limbAngle, animationProgress, tickDelta, headPitch);
+        if (itemstack.getItem() instanceof HorseArmorItem horsearmoritem) {
+            this.getContextModel().copyStateTo(this.model);
+            this.model.animateModel(entity, limbAngle, limbAngle, tickDelta);
+            this.model.setAngles(entity, limbAngle, limbAngle, animationProgress, tickDelta, headPitch);
             float f;
             float f1;
             float f2;
@@ -44,7 +47,7 @@ public class ReindeerLeatherArmorFeatureRenderer extends FeatureRenderer<Reindee
             }
 
             VertexConsumer ivertexbuilder = vertexConsumers.getBuffer(RenderLayer.getEntityCutoutNoCull(horsearmoritem.getEntityTexture()));
-            this.field_215341_a.render(matrices, ivertexbuilder, light, OverlayTexture.DEFAULT_UV, f, f1, f2, 1.0F);
+            this.model.render(matrices, ivertexbuilder, light, OverlayTexture.DEFAULT_UV, f, f1, f2, 1.0F);
         }
     }
 }

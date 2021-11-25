@@ -21,7 +21,7 @@ public class ChristmasSpiritConfig implements Config {
 
     public static class Misc {
         @Comment("1 in x chance when a zombie or skeleton spawns to give them clothing and a present. Range is 0 - 256")
-        public int mobArmorRarity = 50;
+        public int mobArmorRarity = 20;
         @Comment("When false, any Naughty Item in a player's inventory will be deleted.")
         public boolean naughtyItems = true;
         @Comment("When false, can't fly.")

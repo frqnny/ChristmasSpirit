@@ -161,8 +161,7 @@ public class PresentConstructor {
         world.setBlockState(pos, getStyle().getBlock().getDefaultState());
         BlockEntity newBe = world.getBlockEntity(pos);
 
-        if (newBe instanceof WrappedPresentBlockEntity) {
-            WrappedPresentBlockEntity tileEntity = (WrappedPresentBlockEntity) newBe;
+        if (newBe instanceof WrappedPresentBlockEntity tileEntity) {
             tileEntity.setPresentConstructor(this);
             ((Inventory) tileEntity).setStack(0, giftStack);
         }

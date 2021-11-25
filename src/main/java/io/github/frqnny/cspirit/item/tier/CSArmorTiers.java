@@ -1,5 +1,6 @@
 package io.github.frqnny.cspirit.item.tier;
 
+import io.github.frqnny.cspirit.init.ModItems;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.EquipmentSlot;
@@ -67,6 +68,9 @@ public enum CSArmorTiers implements ArmorMaterial {
 
     @Override
     public Ingredient getRepairIngredient() {
+        if (this == CSArmorTiers.FROST) {
+            return Ingredient.ofItems(ModItems.FROST_INGOT);
+        }
         return base.getRepairIngredient();
     }
 

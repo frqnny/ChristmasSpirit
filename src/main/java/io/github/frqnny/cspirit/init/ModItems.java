@@ -40,11 +40,11 @@ public class ModItems {
     public static final Item CHRISTMAS_LIGHT_BLUE = new BlockItem(ModBlocks.CHRISTMAS_LIGHTS_BLUE, new FabricItemSettings().group(ChristmasSpirit.DECORATION));
 
     //FOOD
-    public static final Item CHOCOLATE_BAR = new CSFoodItem(2, 0.2F, 1, false);
-    public static final Item PEPPERMINT_BARK = new CSFoodItem(4, 0.3F, 2, false);
-    public static final Item PEPPERMINT_CANDY_RED = new CSFoodItem(2, 0.4F, 2, false);
-    public static final Item PEPPERMINT_CANDY_GREEN = new CSFoodItem(2, 0.4F, 2, false);
-    public static final Item PEPPERMINT_CANDY_BLUE = new CSFoodItem(2, 0.4F, 2, false);
+    public static final Item CHOCOLATE_BAR = new CSFoodItem(4, 0.4F, 1, false);
+    public static final Item PEPPERMINT_BARK = new CSFoodItem(6, 0.6F, 2, false);
+    public static final Item PEPPERMINT_CANDY_RED = new CSFoodItem(4, 0.4F, 2, false);
+    public static final Item PEPPERMINT_CANDY_GREEN = new CSFoodItem(4, 0.4F, 2, false);
+    public static final Item PEPPERMINT_CANDY_BLUE = new CSFoodItem(4, 0.4F, 2, false);
 
     public static final Item CANDY_CANE_RED = new CandyCaneItem(ModBlocks.CANDY_CANE_POST_RED, new FabricItemSettings().group(ChristmasSpirit.DECORATION).food(new FoodComponent.Builder().hunger(7).saturationModifier(0.8F).alwaysEdible().build()));
     public static final Item CANDY_CANE_GREEN = new CandyCaneItem(ModBlocks.CANDY_CANE_POST_GREEN, new FabricItemSettings().group(ChristmasSpirit.DECORATION).food(new FoodComponent.Builder().hunger(7).saturationModifier(0.8F).alwaysEdible().build()));
@@ -52,24 +52,24 @@ public class ModItems {
 
     public static final Item SUGAR_COOKIE_SANTA = new SantaCookieItem(new FabricItemSettings().group(ChristmasSpirit.BAKING).food(new FoodComponent.Builder().hunger(12).saturationModifier(1.2F).alwaysEdible().build()));
 
-    public static final Item SUGAR_COOKIE_CIRCLE = new CSFoodItem(5, 0.2F, 2, false);
-    public static final Item SUGAR_COOKIE_ORNAMENT = new CSFoodItem(6, 0.3F, 2, false);
-    public static final Item SUGAR_COOKIE_STAR = new CSFoodItem(7, 0.4F, 2, false);
-    public static final Item SUGAR_COOKIE_MAN = new CSFoodItem(8, 0.5F, 3, false);
-    public static final Item SUGAR_COOKIE_SNOWMAN = new CSFoodItem(9, 0.6F, 3, false);
+    public static final Item SUGAR_COOKIE_CIRCLE = new CSFoodItem(6, 0.6F, 2, false);
+    public static final Item SUGAR_COOKIE_ORNAMENT = new CSFoodItem(7, 0.7F, 2, false);
+    public static final Item SUGAR_COOKIE_STAR = new CSFoodItem(8, 0.8F, 2, false);
+    public static final Item SUGAR_COOKIE_MAN = new CSFoodItem(9, 0.9F, 3, false);
+    public static final Item SUGAR_COOKIE_SNOWMAN = new CSFoodItem(10, 1.0F, 3, false);
 
-    public static final Item GINGERBREAD_COOKIE_CIRCLE = new CSFoodItem(6, 0.3F, 2, false);
-    public static final Item GINGERBREAD_COOKIE_ORNAMENT = new CSFoodItem(7, 0.4F, 2, false);
-    public static final Item GINGERBREAD_COOKIE_STAR = new CSFoodItem(8, 0.5F, 2, false);
-    public static final Item GINGERBREAD_COOKIE_MAN = new CSFoodItem(9, 0.6F, 3, false);
-    public static final Item GINGERBREAD_COOKIE_SNOWMAN = new CSFoodItem(10, 0.6F, 3, false);
+    public static final Item GINGERBREAD_COOKIE_CIRCLE = new CSFoodItem(7, 0.7F, 2, false);
+    public static final Item GINGERBREAD_COOKIE_ORNAMENT = new CSFoodItem(8, 0.8F, 2, false);
+    public static final Item GINGERBREAD_COOKIE_STAR = new CSFoodItem(9, 0.9F, 2, false);
+    public static final Item GINGERBREAD_COOKIE_MAN = new CSFoodItem(10, 0.10F, 3, false);
+    public static final Item GINGERBREAD_COOKIE_SNOWMAN = new CSFoodItem(11, 1.1F, 3, false);
 
-    public static final Item MUG_MILK = new CSFoodItem(3, 0.4F, 2, true);
-    public static final Item MUG_HOT_CHOCOLATE = new CSFoodItem(6, 0.5F, 2, true);
+    public static final Item MUG_MILK = new CSFoodItem(4, 0.6F, 2, true);
+    public static final Item MUG_HOT_CHOCOLATE = new CSFoodItem(7, 0.7F, 2, true);
     public static final Item MUG_EGGNOG = new CSFoodItem(6, 0.6F, 2, true);
 
-    public static final Item SODA_COLA = new SodaItem(5, 0.4F);
-    public static final Item SODA_GINGER_ALE = new SodaItem(6, 0.6F);
+    public static final Item SODA_COLA = new SodaItem(6, 0.6F);
+    public static final Item SODA_GINGER_ALE = new SodaItem(7, 0.7F);
     public static final Item SODA_SPRITE_CRANBERRY = new SodaItem(8, 0.8F);
 
     //WEARABLES
@@ -124,6 +124,8 @@ public class ModItems {
     public static final Item PRESENT_WRAPPED_RED_ITEM = new WrappedPresentBlockItem(ModBlocks.PRESENT_WRAPPED_RED, new FabricItemSettings().group(ChristmasSpirit.DECORATION));
     public static final Item PRESENT_WRAPPED_GREEN_ITEM = new WrappedPresentBlockItem(ModBlocks.PRESENT_WRAPPED_GREEN, new FabricItemSettings().group(ChristmasSpirit.DECORATION));
     public static final Item PRESENT_WRAPPED_BLUE_ITEM = new WrappedPresentBlockItem(ModBlocks.PRESENT_WRAPPED_BLUE, new FabricItemSettings().group(ChristmasSpirit.DECORATION));
+    public static final Item PRESENT_WRAPPED_ORANGE_ITEM = new WrappedPresentBlockItem(ModBlocks.PRESENT_WRAPPED_ORANGE, new FabricItemSettings().group(ChristmasSpirit.DECORATION));
+    public static final Item PRESENT_WRAPPED_PINK_ITEM = new WrappedPresentBlockItem(ModBlocks.PRESENT_WRAPPED_PINK, new FabricItemSettings().group(ChristmasSpirit.DECORATION));
 
     //CROPS
     public static final Item GINGER = new AliasedBlockItem(ModBlocks.GINGER, new FabricItemSettings().group(ChristmasSpirit.BAKING));
@@ -247,6 +249,8 @@ public class ModItems {
         Registry.register(Registry.ITEM, ChristmasSpirit.id("present_wrapped_red"), PRESENT_WRAPPED_RED_ITEM);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("present_wrapped_blue"), PRESENT_WRAPPED_BLUE_ITEM);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("present_wrapped_green"), PRESENT_WRAPPED_GREEN_ITEM);
+        Registry.register(Registry.ITEM, ChristmasSpirit.id("present_wrapped_orange"), PRESENT_WRAPPED_ORANGE_ITEM);
+        Registry.register(Registry.ITEM, ChristmasSpirit.id("present_wrapped_pink"), PRESENT_WRAPPED_PINK_ITEM);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("ginger"), GINGER);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("peppermint"), PEPPERMINT);
         Registry.register(Registry.ITEM, ChristmasSpirit.id("snowy_path"), SNOWY_PATH);

@@ -30,6 +30,6 @@ public class ChatHelper {
      * @param message The message.
      */
     public static void broadcastMessage(World world, String message) {
-        Objects.requireNonNull(world.getServer()).getPlayerManager().broadcastChatMessage(new LiteralText(message), MessageType.CHAT, Util.NIL_UUID);
+        Objects.requireNonNull(world.getServer()).getPlayerManager().broadcast(new LiteralText(message), MessageType.CHAT, Util.NIL_UUID);
     }
 }

@@ -52,12 +52,6 @@ public class CookieTrayBlock extends CSBlock implements BlockEntityProvider {
         return SHAPE;
     }
 
-    @Nullable
-    @Override
-    public BlockEntity createBlockEntity(BlockView world) {
-        return new CookieTrayBlockEntity();
-    }
-
     @Override
     public boolean isTranslucent(BlockState state, BlockView world, BlockPos pos) {
         return true;
@@ -99,5 +93,11 @@ public class CookieTrayBlock extends CSBlock implements BlockEntityProvider {
 
             super.onStateReplaced(state, world, pos, newState, moved);
         }
+    }
+
+    @Nullable
+    @Override
+    public BlockEntity createBlockEntity(BlockPos pos, BlockState state) {
+        return new CookieTrayBlockEntity(pos, state);
     }
 }

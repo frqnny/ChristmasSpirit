@@ -13,9 +13,9 @@ import org.jetbrains.annotations.Nullable;
 public class GarlandBlock extends CSBlock {
     public static final DirectionProperty FACING = HorizontalFacingBlock.FACING;
     public static final VoxelShape SHAPE_N = Block.createCuboidShape(0, 5, 0, 16, 10, 2);
-    public static final VoxelShape SHAPE_E = Block.createCuboidShape(16, 5, 0, 14, 10, 16);
-    public static final VoxelShape SHAPE_S = Block.createCuboidShape(16, 5, 16, 0, 10, 14);
-    public static final VoxelShape SHAPE_W = Block.createCuboidShape(0, 5, 16, 2, 10, 0);
+    public static final VoxelShape SHAPE_E = Block.createCuboidShape(14, 5, 0, 16, 10, 16);
+    public static final VoxelShape SHAPE_S = Block.createCuboidShape(0, 5, 14, 16, 10, 16);
+    public static final VoxelShape SHAPE_W = Block.createCuboidShape(0, 5, 0, 2, 10, 16);
 
     public GarlandBlock(Settings settings) {
         super(settings);
@@ -24,16 +24,12 @@ public class GarlandBlock extends CSBlock {
 
     @Override
     public VoxelShape getOutlineShape(BlockState state, BlockView world, BlockPos pos, ShapeContext context) {
-        switch (state.get(FACING)) {
-            case EAST:
-                return SHAPE_E;
-            case SOUTH:
-                return SHAPE_S;
-            case WEST:
-                return SHAPE_W;
-            default:
-                return SHAPE_N;
-        }
+        return switch (state.get(FACING)) {
+            case EAST -> SHAPE_E;
+            case SOUTH -> SHAPE_S;
+            case WEST -> SHAPE_W;
+            default -> SHAPE_N;
+        };
     }
 
     @Nullable

@@ -2,7 +2,9 @@ package io.github.frqnny.cspirit.entity;
 
 import io.github.frqnny.cspirit.init.ModEntityTypes;
 import io.github.frqnny.cspirit.init.ModItems;
-import io.github.frqnny.cspirit.util.PacketHelper;
+import io.github.frqnny.cspirit.init.ModPackets;
+import io.netty.buffer.Unpooled;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.data.DataTracker;
 import net.minecraft.entity.data.TrackedData;
@@ -12,6 +14,7 @@ import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.Packet;
+import net.minecraft.network.PacketByteBuf;
 import net.minecraft.world.World;
 
 public class CandyCaneProjectileEntity extends PersistentProjectileEntity {
@@ -38,16 +41,12 @@ public class CandyCaneProjectileEntity extends PersistentProjectileEntity {
     }
 
     public ItemStack getCandyCaneStack() {
-        switch (getCandyType()) {
-            case 0:
-                return new ItemStack(ModItems.CANDY_CANE_RED);
-            case 1:
-                return new ItemStack(ModItems.CANDY_CANE_GREEN);
-            case 2:
-                return new ItemStack(ModItems.CANDY_CANE_BLUE);
-            default:
-                throw new RuntimeException("Candy Cane Projectile has bad byte id");
-        }
+        return switch (getCandyType()) {
+            case 0 -> new ItemStack(ModItems.CANDY_CANE_RED);
+            case 1 -> new ItemStack(ModItems.CANDY_CANE_GREEN);
+            case 2 -> new ItemStack(ModItems.CANDY_CANE_BLUE);
+            default -> throw new RuntimeException("Candy Cane Projectile has bad byte id");
+        };
 
     }
 
@@ -74,6 +73,14 @@ public class CandyCaneProjectileEntity extends PersistentProjectileEntity {
 
     @Override
     public Packet<?> createSpawnPacket() {
-        return PacketHelper.newSpawnPacket(this);
+        PacketByteBuf buf = new PacketByteBuf(Unpooled.buffer());
+        buf.writeDouble(getX());
+        buf.writeDouble(getY());
+        buf.writeDouble(getZ());
+        buf.writeInt(this.getId());
+        buf.writeUuid(getUuid());
+        buf.writeUuid(this.getOwner().getUuid());
+        buf.writeByte(this.getCandyType());
+        return ServerPlayNetworking.createS2CPacket(ModPackets.CANDY_CANE_SPAWN_PACKET, buf);
     }
 }

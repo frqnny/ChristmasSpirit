@@ -12,7 +12,7 @@ import java.util.Map;
 
 public class SantaGiftListFile {
 
-    public static Map<String, GiftEntry> santaGiftList = new HashMap<>();
+    public static Map<String, GiftEntry> santaGiftList = new HashMap<>(30);
 
     public static void init() {
         santaGiftList = FileHelper.readFileOrCreate("SantaGiftList", getDefaults(), new TypeToken<Map<String, GiftEntry>>() {
@@ -20,7 +20,7 @@ public class SantaGiftListFile {
     }
 
     private static Map<String, GiftEntry> getDefaults() {
-        Map<String, GiftEntry> ret = new HashMap<>();
+        Map<String, GiftEntry> ret = new HashMap<>(55);
 
         addDefault(ret, "WoodLogs", "minecraft:oak_log", 32, 0, 0, 5);
         addDefault(ret, "Leather", "minecraft:leather", 16, 0, 0, 15);
@@ -89,14 +89,13 @@ public class SantaGiftListFile {
     }
 
     public static class GiftEntry {
-
         public final String stackStr;
         public final int maxAmount;
         public final int rarityIndex;
         public final int minDay;
         public final int maxDay;
 
-        GiftEntry(String stackStr, int maxAmount, int rarityIndex, int minDay, int maxDay) {
+        public GiftEntry(String stackStr, int maxAmount, int rarityIndex, int minDay, int maxDay) {
             this.stackStr = stackStr;
             this.maxAmount = maxAmount;
             this.rarityIndex = rarityIndex;
@@ -122,4 +121,5 @@ public class SantaGiftListFile {
             return nbt;
         }
     }
+
 }

@@ -16,7 +16,7 @@ import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.NbtCompound;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandlerContext;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -39,9 +39,7 @@ public class UnwrappedPresentGUI extends SyncedGuiDescription {
         constructor = new PresentConstructor();
         inv = getBlockInventory(context);
         player = playerInventory.player;
-        context.run((world, pos) -> {
-            this.pos = pos;
-        });
+        context.run((world, pos) -> this.pos = pos);
 
         WGridPanel root = new WGridPanel(1);
         setRootPanel(root);
@@ -56,7 +54,7 @@ public class UnwrappedPresentGUI extends SyncedGuiDescription {
         WPresentButton daysButton = new WPresentButton(cycleThroughDays(), 32, constructor.day, true);
         root.add(daysButton, 26, 63, 50, 16);
 
-        WPresentButton stylesButton = new WPresentButton(cycleThroughStyles(), 3, constructor.styleIndex, false);
+        WPresentButton stylesButton = new WPresentButton(cycleThroughStyles(), 5, constructor.styleIndex, false);
         root.add(stylesButton, 100, 63, 50, 16);
 
         WButton wrapPresentButton = new WButton();
@@ -112,9 +110,9 @@ public class UnwrappedPresentGUI extends SyncedGuiDescription {
 
 
             PacketByteBuf buf = PacketByteBufs.create();
-            CompoundTag tag = new CompoundTag();
+            NbtCompound tag = new NbtCompound();
             constructor.toNBT(tag);
-            buf.writeCompoundTag(tag);
+            buf.writeNbt(tag);
             buf.writeBlockPos(pos);
             ClientPlayNetworking.send(ModPackets.WRAP_PACKET_ID, buf);
 

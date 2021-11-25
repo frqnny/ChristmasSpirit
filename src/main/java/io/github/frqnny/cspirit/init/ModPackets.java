@@ -15,7 +15,8 @@ import net.minecraft.world.World;
 public class ModPackets {
     public static final Identifier WRAP_PACKET_ID = ChristmasSpirit.id("wrap_packet");
     public static final Identifier REINDEER_JUMP_PACKET = ChristmasSpirit.id("reindeer_jump");
-    public static final Identifier SPAWN_PACKET_TREE = ChristmasSpirit.id("christmas_tree_spawn_packet");
+    public static final Identifier TREE_SPAWN_PACKET = ChristmasSpirit.id("christmas_tree_spawn_packet");
+    public static final Identifier CANDY_CANE_SPAWN_PACKET = ChristmasSpirit.id("candy_cane_spawn_packet");
 
     public static void init() {
         ServerPlayNetworking.registerGlobalReceiver(WRAP_PACKET_ID, (server, player, handler, buf, responseSender) -> {
@@ -36,13 +37,12 @@ public class ModPackets {
         });
 
         ServerPlayNetworking.registerGlobalReceiver(REINDEER_JUMP_PACKET, (server, player, handler, buf, responseSender) -> {
-
-            server.execute(() -> {
-
-                if (player != null && player.getVehicle() instanceof ReindeerEntity reindeer) {
-                    reindeer.getDataTracker().set(ReindeerEntity.JUMP_KEY, buf.readBoolean());
-                }
-            });
+                boolean jump = buf.readBoolean();
+                server.execute(() -> {
+                    if (player != null && player.getVehicle() instanceof ReindeerEntity reindeer) {
+                        reindeer.getDataTracker().set(ReindeerEntity.JUMP_KEY, jump);
+                    }
+                });
         });
     }
 }
