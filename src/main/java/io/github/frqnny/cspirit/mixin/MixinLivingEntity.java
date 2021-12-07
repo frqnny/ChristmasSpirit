@@ -30,7 +30,6 @@ public abstract class MixinLivingEntity {
             LivingEntity whateverThisIs = ((LivingEntity) (Object) this);
 
             if (FrostHelper.doesEntityHaveFrostArmorSet(attacker)) {
-                System.out.println("Help");
                 EffectHelper.giveFrozenEffect(whateverThisIs, 2);
             }
         }
