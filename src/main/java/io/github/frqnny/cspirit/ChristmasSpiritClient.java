@@ -86,7 +86,7 @@ public class ChristmasSpiritClient implements ClientModInitializer {
         ItemTooltipCallback.EVENT.register(
                 (stack, context, lines) -> {
                     Item item = stack.getItem();
-                    if (item.isFood() && item.getFoodComponent() != null) {
+                    if (item.isFood() && item.getFoodComponent() != null && stack.getTranslationKey().contains("cspirit")) {
                         String hunger = "hunger.icon." + item.getFoodComponent().getHunger();
                         lines.add(new TranslatableText(hunger));
                         String saturation = "saturation.icon." + item.getFoodComponent().getSaturationModifier();
@@ -119,7 +119,7 @@ public class ChristmasSpiritClient implements ClientModInitializer {
             tree.updateTrackedPosition(new Vec3d(x, y, z));
             tree.setId(entityId);
             tree.setUuid(uuid);
-            handler.getWorld().addEntity(entityId, tree);
+            client.world.addEntity(entityId, tree);
         });
         ClientPlayNetworking.registerGlobalReceiver(ModPackets.CANDY_CANE_SPAWN_PACKET, (client, handler, buf, sender) -> {
             double x = buf.readDouble();
@@ -129,11 +129,11 @@ public class ChristmasSpiritClient implements ClientModInitializer {
             UUID uuid = buf.readUuid();
             UUID ownerUUID = buf.readUuid();
             byte type = buf.readByte();
-            CandyCaneProjectileEntity candyCane = new CandyCaneProjectileEntity(MinecraftClient.getInstance().world, handler.getWorld().getPlayerByUuid(ownerUUID), type);
+            CandyCaneProjectileEntity candyCane = new CandyCaneProjectileEntity(MinecraftClient.getInstance().world, client.world.getPlayerByUuid(ownerUUID), type);
             candyCane.updateTrackedPosition(new Vec3d(x, y, z));
             candyCane.setId(entityId);
             candyCane.setUuid(uuid);
-            handler.getWorld().addEntity(entityId, candyCane);
+            client.world.addEntity(entityId, candyCane);
         });
     }
 }

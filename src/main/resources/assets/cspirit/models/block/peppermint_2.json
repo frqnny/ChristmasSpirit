@@ -1,5 +1,4 @@
 {
-
   "parent": "block/crop",
   "textures": {
     "crop": "cspirit:block/peppermint_2"

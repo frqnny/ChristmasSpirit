@@ -3,10 +3,7 @@
   "ingredient": {
     "item": "cspirit:peppermint_candy_mix"
   },
-  "result": {
-    "item": "cspirit:peppermint_candy_red",
-    "count": 2,
-    "experience": 2.0,
-    "cookingtime": 400
-  }
+  "result": "cspirit:peppermint_candy_red",
+  "experience": 2.0,
+  "cookingtime": 400
 }

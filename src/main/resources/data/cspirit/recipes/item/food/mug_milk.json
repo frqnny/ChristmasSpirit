@@ -3,10 +3,7 @@
   "ingredient": {
     "item": "minecraft:milk_bucket"
   },
-  "result": {
-    "item": "cspirit:mug_milk",
-    "count": 1,
-    "experience": 2.0,
-    "cookingtime": 200
-  }
+  "result": "cspirit:mug_milk",
+  "experience": 2.0,
+  "cookingtime": 200
 }

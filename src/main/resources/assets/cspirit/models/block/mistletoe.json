@@ -1,6 +1,6 @@
 {
-	"parent": "minecraft:block/cross",
-	"textures": {
-		"cross": "cspirit:block/mistletoe"
-	}
+  "parent": "minecraft:block/cross",
+  "textures": {
+    "cross": "cspirit:block/mistletoe"
+  }
 }

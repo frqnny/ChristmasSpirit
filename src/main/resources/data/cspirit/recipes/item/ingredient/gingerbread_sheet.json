@@ -3,9 +3,7 @@
   "ingredient": {
     "item": "cspirit:gingerbread_dough"
   },
-  "result": {
-    "item": "cspirit:gingerbread_sheet",
-    "experience": 2.0,
-    "cookingtime": 400
-  }
+  "result": "cspirit:gingerbread_sheet",
+  "experience": 2.0,
+  "cookingtime": 400
 }

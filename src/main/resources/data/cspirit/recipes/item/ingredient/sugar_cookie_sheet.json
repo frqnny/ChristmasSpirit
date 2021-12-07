@@ -3,9 +3,7 @@
   "ingredient": {
     "item": "cspirit:sugar_cookie_dough"
   },
-  "result": {
-    "item": "cspirit:sugar_cookie_sheet",
-    "experience": 2.0,
-    "cookingtime": 400
-  }
+  "result": "cspirit:sugar_cookie_sheet",
+  "experience": 2.0,
+  "cookingtime": 400
 }

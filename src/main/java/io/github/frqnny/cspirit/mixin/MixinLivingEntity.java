@@ -30,7 +30,7 @@ public abstract class MixinLivingEntity {
             LivingEntity whateverThisIs = ((LivingEntity) (Object) this);
 
             if (FrostHelper.doesEntityHaveFrostArmorSet(attacker)) {
-
+                System.out.println("Help");
                 EffectHelper.giveFrozenEffect(whateverThisIs, 2);
             }
         }
@@ -39,27 +39,30 @@ public abstract class MixinLivingEntity {
     @Inject(method = "tick", at = @At("TAIL"))
     public void events(CallbackInfo info) {
         LivingEntity entity = ((LivingEntity) (Object) this);
-        //skating
         World world = entity.getEntityWorld();
+        //skating
+        if (entity instanceof PlayerEntity) {
 
-        ItemStack bootsStack = entity.getEquippedStack(EquipmentSlot.FEET);
+            ItemStack bootsStack = entity.getEquippedStack(EquipmentSlot.FEET);
 
-        if (!entity.isSneaking() && !entity.hasVehicle()) {
+            if (!entity.isSneaking() && !entity.hasVehicle()) {
 
-            if (bootsStack.getItem() == ModItems.ICE_SKATES) {
+                if (bootsStack.getItem() == ModItems.ICE_SKATES) {
 
-                BlockPos pos = new BlockPos(entity.getPos().x, entity.getBoundingBox().minY - 0.5D, entity.getPos().z);
+                    BlockPos pos = new BlockPos(entity.getPos().x, entity.getBoundingBox().minY - 0.5D, entity.getPos().z);
 
-                double slipperiness = world.getBlockState(pos).getBlock().getSlipperiness();
+                    double slipperiness = world.getBlockState(pos).getBlock().getSlipperiness();
 
-                if (slipperiness > 0.7D) {
-                    Objects.requireNonNull(entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)).setBaseValue(entity.isSprinting() ? 0.4F : 0.2F);
-                    return;
+                    if (slipperiness > 0.7D) {
+                        Objects.requireNonNull(entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)).setBaseValue(entity.isSprinting() ? 0.4F : 0.2F);
+                        return;
+                    }
                 }
             }
+
+            Objects.requireNonNull(entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.1F);
         }
 
-        Objects.requireNonNull(entity.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED)).setBaseValue(0.1F);
 
         //disable naughty items
         if (!ChristmasSpirit.getConfig().misc.naughtyItems) {
