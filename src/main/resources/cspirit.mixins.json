@@ -4,6 +4,7 @@
   "package": "io.github.frqnny.cspirit.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "BiomeMixin",
     "ItemMixin",
     "MixinLivingEntity",
     "MixinServerWorld"

@@ -10,6 +10,7 @@ import io.github.frqnny.cspirit.data.DailyPresentDataFile;
 import io.github.frqnny.cspirit.data.NaughtyListFile;
 import io.github.frqnny.cspirit.data.SantaGiftListFile;
 import io.github.frqnny.cspirit.init.*;
+import io.github.frqnny.cspirit.mixin.BiomeMixin;
 import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.biome.v1.BiomeModifications;
@@ -59,7 +60,7 @@ public class ChristmasSpirit implements ModInitializer {
 
     public static Predicate<BiomeSelectionContext> shouldFreezeOceanBiomeIfOcean() {
         return (context) -> {
-            if (context.getBiome().getCategory() == Biome.Category.OCEAN) {
+            if (((BiomeMixin)(Object)context.getBiome()).getCategory() == Biome.Category.OCEAN) {
                 return config.worldGen.freezeOceans;
             } else {
                 return true;
@@ -73,7 +74,7 @@ public class ChristmasSpirit implements ModInitializer {
 
     public static Predicate<BiomeSelectionContext> deerSpawn() {
         return (context) -> {
-            Biome.Category category = context.getBiome().getCategory();
+            Biome.Category category = ((BiomeMixin)(Object) context.getBiome()).getCategory();
             return category == Biome.Category.PLAINS || category == Biome.Category.FOREST;
         };
     }
